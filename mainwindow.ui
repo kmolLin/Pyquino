@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>260</x>
-      <y>350</y>
-      <width>481</width>
-      <height>221</height>
+      <y>220</y>
+      <width>471</width>
+      <height>171</height>
      </rect>
     </property>
     <property name="font">
@@ -239,9 +239,9 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>260</x>
-      <y>40</y>
-      <width>551</width>
-      <height>271</height>
+      <y>30</y>
+      <width>541</width>
+      <height>181</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -262,18 +262,56 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="pushButtonSendData">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>350</y>
+      <x>740</x>
+      <y>220</y>
       <width>61</width>
-      <height>221</height>
+      <height>171</height>
      </rect>
     </property>
     <property name="text">
      <string>send</string>
     </property>
    </widget>
+   <widget class="QOpenGLWidget" name="openGLWidget">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>410</y>
+      <width>481</width>
+      <height>231</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>852</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionSend"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <action name="actionSend">
+   <property name="text">
+    <string>send Gcode</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>exit</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Y:\eric6_workspace\pad_solve\mainwindow.ui'
+# Form implementation generated from reading ui file 'Y:\eric6_workspace\PyQt5-pyserial\mainwindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.7
 #
@@ -15,7 +15,7 @@ class Ui_MainWindow(object):
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setObjectName("centralWidget")
         self.textEditSent = QtWidgets.QTextEdit(self.centralWidget)
-        self.textEditSent.setGeometry(QtCore.QRect(260, 350, 481, 221))
+        self.textEditSent.setGeometry(QtCore.QRect(260, 220, 471, 171))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.textEditSent.setFont(font)
@@ -46,11 +46,6 @@ class Ui_MainWindow(object):
         self.comboBoxBaud = QtWidgets.QComboBox(self.groupBox)
         self.comboBoxBaud.setGeometry(QtCore.QRect(90, 80, 121, 31))
         self.comboBoxBaud.setObjectName("comboBoxBaud")
-     #   bauds = ["50","75","134","110","150","200","300","600","1200","2400","4800","9600","14400","19200","38400","56000","57600",
-      #           "115200"];
-       # self.comboBoxBaud.addItems(bauds)
-       # self.comboBoxBaud.setCurrentIndex(len(bauds) - 1)
-        
         self.label_3 = QtWidgets.QLabel(self.groupBox)
         self.label_3.setGeometry(QtCore.QRect(10, 130, 71, 21))
         font = QtGui.QFont()
@@ -88,7 +83,7 @@ class Ui_MainWindow(object):
         self.pushButtonCloseSerial.setGeometry(QtCore.QRect(10, 320, 201, 31))
         self.pushButtonCloseSerial.setObjectName("pushButtonCloseSerial")
         self.textEditReceived = QtWidgets.QTextEdit(self.centralWidget)
-        self.textEditReceived.setGeometry(QtCore.QRect(260, 40, 551, 271))
+        self.textEditReceived.setGeometry(QtCore.QRect(260, 30, 541, 181))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -100,12 +95,28 @@ class Ui_MainWindow(object):
         self.textEditReceived.setReadOnly(True)
         self.textEditReceived.setObjectName("textEditReceived")
         self.pushButtonSendData = QtWidgets.QPushButton(self.centralWidget)
-        self.pushButtonSendData.setGeometry(QtCore.QRect(750, 350, 61, 221))
+        self.pushButtonSendData.setGeometry(QtCore.QRect(740, 220, 61, 171))
         self.pushButtonSendData.setObjectName("pushButtonSendData")
+        self.openGLWidget = QtWidgets.QOpenGLWidget(self.centralWidget)
+        self.openGLWidget.setGeometry(QtCore.QRect(160, 410, 481, 231))
+        self.openGLWidget.setObjectName("openGLWidget")
         MainWindow.setCentralWidget(self.centralWidget)
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
+        self.menuBar = QtWidgets.QMenuBar(MainWindow)
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 852, 21))
+        self.menuBar.setObjectName("menuBar")
+        self.menuFile = QtWidgets.QMenu(self.menuBar)
+        self.menuFile.setObjectName("menuFile")
+        MainWindow.setMenuBar(self.menuBar)
+        self.actionSend = QtWidgets.QAction(MainWindow)
+        self.actionSend.setObjectName("actionSend")
+        self.actionExit = QtWidgets.QAction(MainWindow)
+        self.actionExit.setObjectName("actionExit")
+        self.menuFile.addAction(self.actionSend)
+        self.menuFile.addAction(self.actionExit)
+        self.menuBar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -121,19 +132,17 @@ class Ui_MainWindow(object):
         self.groupBox.setTitle(_translate("MainWindow", "com setting"))
         self.label_2.setText(_translate("MainWindow", "com"))
         self.label.setText(_translate("MainWindow", "baurd"))
-        
-        
-       # self.comboBoxBaud.setItemText(0, _translate("MainWindow", "250000"))
-       # self.comboBoxBaud.setItemText(1, _translate("MainWindow", "115200"))
-       # self.comboBoxBaud.setItemText(2, _translate("MainWindow", "9600"))
         self.label_3.setText(_translate("MainWindow", "first"))
         self.label_4.setText(_translate("MainWindow", "data"))
         self.label_5.setText(_translate("MainWindow", "stop"))
         self.pushButtonOpenSerial.setText(_translate("MainWindow", "open"))
         self.pushButtonCloseSerial.setText(_translate("MainWindow", "close"))
         self.pushButtonSendData.setText(_translate("MainWindow", "send"))
+        self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.actionSend.setText(_translate("MainWindow", "send Gcode"))
+        self.actionExit.setText(_translate("MainWindow", "exit"))
 
-'''
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -142,4 +151,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
-'''
+

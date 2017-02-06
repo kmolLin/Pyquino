@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
-
 from PyQt5 import QtWidgets , QtCore
 from PyQt5.QtCore import pyqtSlot
 
@@ -13,6 +11,8 @@ import time
 import serial
 
 from Ui_mainwindow import Ui_MainWindow
+
+
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -214,6 +214,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     #self._auto_send_signal.emit()
                         
             time.sleep(delay)
+            
+
     
     
     
