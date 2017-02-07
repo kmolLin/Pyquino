@@ -275,6 +275,14 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
+     <zorder>pushButtonSendData</zorder>
+     <zorder>groupBox</zorder>
+     <zorder>textEditSent</zorder>
+     <zorder>textEditReceived</zorder>
+     <zorder>groupBox</zorder>
+     <zorder>pushButtonSendData</zorder>
+     <zorder>textEditReceived</zorder>
+     <zorder>textEditSent</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -305,8 +313,8 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/arrow-up-b.png</normaloff>:/icons/arrow-up-b.png</iconset>
+        <iconset>
+         <normaloff>../icon/arrow-up-b.png</normaloff>../icon/arrow-up-b.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -328,8 +336,8 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/arrow-left-b.png</normaloff>:/icons/arrow-left-b.png</iconset>
+        <iconset>
+         <normaloff>../icon/arrow-left-b.png</normaloff>../icon/arrow-left-b.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -351,8 +359,8 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/arrow-right-b.png</normaloff>:/icons/arrow-right-b.png</iconset>
+        <iconset>
+         <normaloff>../icon/arrow-right-b.png</normaloff>../icon/arrow-right-b.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -374,8 +382,8 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/arrow-down-b.png</normaloff>:/icons/arrow-down-b.png</iconset>
+        <iconset>
+         <normaloff>../icon/arrow-down-b.png</normaloff>../icon/arrow-down-b.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -397,8 +405,8 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/arrow-up-a.png</normaloff>:/icons/arrow-up-a.png</iconset>
+        <iconset>
+         <normaloff>../icon/arrow-up-a.png</normaloff>../icon/arrow-up-a.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -420,8 +428,8 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/arrow-down-a.png</normaloff>:/icons/arrow-down-a.png</iconset>
+        <iconset>
+         <normaloff>../icon/arrow-down-a.png</normaloff>../icon/arrow-down-a.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -594,8 +602,6 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
  </widget>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

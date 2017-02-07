@@ -1,0 +1,11 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+        <file>icons/arrow-down-a.png</file>
+        <file>icons/arrow-down-b.png</file>
+        <file>icons/arrow-left-b.png</file>
+        <file>icons/arrow-right-b.png</file>
+        <file>icons/arrow-up-a.png</file>
+        <file>icons/arrow-up-b.png</file>
+</qresource>
+</RCC>

@@ -26,6 +26,8 @@ class Machine(QDialog, Ui_Dialog):
         """
         super(Machine, self).__init__(parent)
         self.setupUi(self)
+        
+        self._serial_context_ = serialportcontext.SerialPortContext(port = 'COM4',baud = 115200)
         #self.initdaForms()
         
         
@@ -36,11 +38,13 @@ class Machine(QDialog, Ui_Dialog):
         
     def __test__send(self):
         data = str("G29"+'\n')
-        print(data)
-        if self._serial_context_.isRunning():
-            if len(data) > 0:
-                self._serial_context_.send(data, 0)
-                print(data)
+        print('0')
+        #if self._serial_context_.isRunning():
+        print("1")
+        if len(data) > 0:
+            print("2")
+            self._serial_context_.send(data, 0)
+            print(data)
     
 
 #    def __run__(self):
@@ -56,7 +60,9 @@ class Machine(QDialog, Ui_Dialog):
     @pyqtSlot()
     def on_homeButton_clicked(self):
         print("test the button")
-        #self.__test__send()
-        raise NotImplementedError
+        data = 'G29'
+#        MainWindow.__test__send(self, data)
+       # self.__test__send()
+        #raise NotImplementedError
     
 

@@ -63,35 +63,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self._auto_send_signal.connect(self.__auto_send_update__)
         
         port = self.comboBoxPort.currentText()
-        #print(port)
-        
         baud = int("%s" % self.comboBoxBaud.currentText(),10)
         self._serial_context_ = serialportcontext.SerialPortContext(port = port,baud = baud)
         
 #        self.lineEditReceivedCounts.setText("0")
 #        self.lineEditSentCounts.setText("0")
-
-
-
-    #actionSend
-        
         self.pushButtonOpenSerial.clicked.connect(self.__open_serial_port__)
        # self.pushButtonClearRecvArea.clicked.connect(self.__clear_recv_area__)
         self.pushButtonSendData.clicked.connect(self.__send_data__)
         self._receive_signal.connect(self.__display_recv_data__)
-        
-        
-
-        
        # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
         self.actionSend.triggered.connect(self.__open_send_file__)
         self._send_file_data = ''
         #self.__control__()
         self.actionControl.triggered.connect(self.__control__)
+        
+        ##machine_control button setting
+        self.unlockMachine.clicked.connect(self.__unlockMachine__)
+        self.yAxisup.clicked.connect(self.__yAxisup__)
+        self.yAxisdown.clicked.connect(self.__yAxisdown__)
+        self.xAxisrigh.clicked.connect(self.__xAxisrigh__)
+        self.xAxisleft.clicked.connect(self.__xAxisleft__)
+        self.zupButton.clicked.connect(self.__zupButton__)
+        self.zdownButton.clicked.connect(self.__zdownButton__)
+        
+        
      
 
    # def __auto_send_update__(self):
     #    self.lineEditSentCounts.setText("%d" % self._serial_context_.getSendCounts())
+    
+    
     
     def __teset__(self):
         print("I'm test")
@@ -130,6 +132,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except Exception as e:
             print(e)
             #QtGui.QMessageBox.critical(self,u"打开文件",u"无法打开文件,请检查!")
+            
+    def __unlockMachine__(self):
+        print("unlock")
+        pass
+        
+    def __yAxisup__(self):
+        print("yAxisup")
+        pass
+        
+    def __yAxisdown__(self):
+        print("yAxisdown")
+        pass
+        
+    def __xAxisrigh__(self):
+        print("xAxisright")
+        pass
+        
+    def __xAxisleft__(self):
+        print("xAxisleft")
+        pass
+        
+    def __zupButton__(self):
+        print("zupButton")
+        pass
+        
+    def __zdownButton__(self):
+        print("zdownButton")
+        pass
     
      
     def __handle_send_looping__(self):
@@ -225,6 +255,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #    self._recv_file_.write(data)
     
     def __test__send(self, data1):
+        print(data1)
         data = str(data1+'\n')
         if self._serial_context_.isRunning():
             if len(data) > 0:
@@ -270,6 +301,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         
             time.sleep(delay)
             
+    @pyqtSlot()
+    def on_homeButton_clicked(self):
+        print("test the button")
+        data = str('G29'+'\n')
+        if self._serial_context_.isRunning():
+            if len(data) > 0:
+                self._serial_context_.send(data, 0)
+#        MainWindow.__test__send(self, data)
+        #self.__test__send(self, data)
+
 
     
     

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Y:\eric6_workspace\PyQt5-pyserial\monitor\machine_mointor.ui'
+# Form implementation generated from reading ui file 'Y:\eric6_workspace\PyQt5-pyserial\monitor/machine_mointor.ui'
 #
 # Created by: PyQt5 UI code generator 5.7
 #
@@ -24,14 +24,14 @@ class Ui_Dialog(object):
         self.yAxisup.setIcon(icon)
         self.yAxisup.setIconSize(QtCore.QSize(30, 30))
         self.yAxisup.setObjectName("yAxisup")
-        self.pushButton_2 = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton_2.setGeometry(QtCore.QRect(0, 110, 91, 61))
-        self.pushButton_2.setText("")
+        self.xAxisleft = QtWidgets.QPushButton(self.groupBox)
+        self.xAxisleft.setGeometry(QtCore.QRect(0, 110, 91, 61))
+        self.xAxisleft.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("../icon/arrow-left-b.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_2.setIcon(icon1)
-        self.pushButton_2.setIconSize(QtCore.QSize(30, 30))
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.xAxisleft.setIcon(icon1)
+        self.xAxisleft.setIconSize(QtCore.QSize(30, 30))
+        self.xAxisleft.setObjectName("xAxisleft")
         self.xAxisrigh = QtWidgets.QPushButton(self.groupBox)
         self.xAxisrigh.setGeometry(QtCore.QRect(230, 110, 91, 61))
         self.xAxisrigh.setText("")
@@ -74,9 +74,9 @@ class Ui_Dialog(object):
         self.label_2 = QtWidgets.QLabel(self.groupBox)
         self.label_2.setGeometry(QtCore.QRect(140, 130, 51, 21))
         self.label_2.setObjectName("label_2")
-        self.pushButton = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton.setGeometry(QtCore.QRect(130, 290, 91, 31))
-        self.pushButton.setObjectName("pushButton")
+        self.homeButton = QtWidgets.QPushButton(self.groupBox)
+        self.homeButton.setGeometry(QtCore.QRect(130, 290, 91, 31))
+        self.homeButton.setObjectName("homeButton")
         self.gridLayoutWidget = QtWidgets.QWidget(Dialog)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(560, 40, 211, 131))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
@@ -115,10 +115,12 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "Z jog"))
         self.unlockMachine.setText(_translate("Dialog", "Unlock machine"))
         self.label_2.setText(_translate("Dialog", "X-Y Axis"))
-        self.pushButton.setText(_translate("Dialog", "Home"))
+        self.homeButton.setText(_translate("Dialog", "Home"))
         self.label_3.setText(_translate("Dialog", "X"))
         self.label_4.setText(_translate("Dialog", "Y"))
         self.label_5.setText(_translate("Dialog", "Z"))
+        
+
 
 '''
 if __name__ == "__main__":
