@@ -3,7 +3,7 @@
 from PyQt5 import QtWidgets , QtCore
 from PyQt5.QtCore import pyqtSlot
 
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QFileDialog
 import platform
 import serialportcontext 
 import threading
@@ -11,12 +11,13 @@ import time
 import serial
 
 from Ui_mainwindow import Ui_MainWindow
+from monitor.machine_mointor import Machine
 
 
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    """
+    """ 
     Class documentation goes here.
     """
     _receive_signal = QtCore.pyqtSignal(str)
@@ -69,20 +70,67 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
 #        self.lineEditReceivedCounts.setText("0")
 #        self.lineEditSentCounts.setText("0")
+
+
+
+    #actionSend
         
         self.pushButtonOpenSerial.clicked.connect(self.__open_serial_port__)
        # self.pushButtonClearRecvArea.clicked.connect(self.__clear_recv_area__)
         self.pushButtonSendData.clicked.connect(self.__send_data__)
         self._receive_signal.connect(self.__display_recv_data__)
         
+        
 
         
        # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
-     #   self.pushButtonOpenSendFile.clicked.connect(self.__open_send_file__)
+        self.actionSend.triggered.connect(self.__open_send_file__)
+        self._send_file_data = ''
+        #self.__control__()
+        self.actionControl.triggered.connect(self.__control__)
      
 
    # def __auto_send_update__(self):
     #    self.lineEditSentCounts.setText("%d" % self._serial_context_.getSendCounts())
+    
+    def __teset__(self):
+        print("I'm test")
+        
+        
+    def __control__(self):
+        print("control open")
+        
+        dlg = Machine()
+        dlg.show()
+        if dlg.exec_(): pass
+
+        
+    def __open_send_file__(self):
+        filename = QFileDialog.getOpenFileName(self, caption="Open Send File")
+        print("123")
+        try:
+           
+            if filename and 1:
+                print(filename)
+                self._send_file_ = open(filename, 'r', encoding='UTF-8')
+                while True:
+                    print("g1",filename )
+                    line = self._send_file_.readline()
+                    if not line:
+                        break
+                    else:
+                        self._send_file_data += line
+                self._send_file_.close()
+                self._send_file_ = None
+            self.textEditSent.clear()
+            if len(self._send_file_data) > 0:
+                print("123", self._send_file_data)
+                self.textEditSent.setText(self._send_file_data)
+            
+        except Exception as e:
+            print(e)
+            #QtGui.QMessageBox.critical(self,u"打开文件",u"无法打开文件,请检查!")
+    
      
     def __handle_send_looping__(self):
         if self._is_auto_sending:
@@ -132,7 +180,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __open_serial_port__(self):
         if  self._serial_context_.isRunning():
             self._serial_context_.close()
-            #self.pushButtonOpenSerial.setText(u'打开')
+            self.pushButtonOpenSerial.setText(u'open')
             print("open")
         else:
             try:
@@ -148,7 +196,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print("4")
                 self._serial_context_.open()
                 print("5")
-                #self.pushButtonOpenSerial.setText(u'关闭')
+                self.pushButtonOpenSerial.setText(u'close')
                 
             except Exception as e:
                 print("error")
@@ -174,7 +222,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print('recv:%s' % data)
         self._receive_signal.emit(data)
         #if self._recv_file_ != None and self.checkBoxSaveAsFile.isChecked():
-        #    self._recv_file_.write(data)    
+        #    self._recv_file_.write(data)
+    
+    def __test__send(self, data1):
+        data = str(data1+'\n')
+        if self._serial_context_.isRunning():
+            if len(data) > 0:
+                self._serial_context_.send(data, 0)
+                print(data)
     
     def __send_data__(self):
         data = str(self.textEditSent.toPlainText()+'\n')

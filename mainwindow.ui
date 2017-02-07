@@ -42,7 +42,7 @@ p, li { white-space: pre-wrap; }
       <x>20</x>
       <y>30</y>
       <width>231</width>
-      <height>371</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="font">
@@ -221,19 +221,6 @@ p, li { white-space: pre-wrap; }
       <string>open</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButtonCloseSerial">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>320</y>
-       <width>201</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>close</string>
-     </property>
-    </widget>
    </widget>
    <widget class="QTextEdit" name="textEditReceived">
     <property name="geometry">
@@ -272,16 +259,6 @@ p, li { white-space: pre-wrap; }
      <string>send</string>
     </property>
    </widget>
-   <widget class="QOpenGLWidget" name="openGLWidget">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>410</y>
-      <width>481</width>
-      <height>231</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
@@ -300,7 +277,16 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionSend"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuMointor">
+    <property name="title">
+     <string>Mointor</string>
+    </property>
+    <addaction name="actionVrep"/>
+    <addaction name="actionOpenGL"/>
+    <addaction name="actionControl"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuMointor"/>
   </widget>
   <action name="actionSend">
    <property name="text">
@@ -310,6 +296,21 @@ p, li { white-space: pre-wrap; }
   <action name="actionExit">
    <property name="text">
     <string>exit</string>
+   </property>
+  </action>
+  <action name="actionVrep">
+   <property name="text">
+    <string>Vrep</string>
+   </property>
+  </action>
+  <action name="actionOpenGL">
+   <property name="text">
+    <string>OpenGL</string>
+   </property>
+  </action>
+  <action name="actionControl">
+   <property name="text">
+    <string>Control</string>
    </property>
   </action>
  </widget>
