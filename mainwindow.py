@@ -3,7 +3,7 @@
 from PyQt5 import QtWidgets , QtCore
 from PyQt5.QtCore import pyqtSlot
 
-from PyQt5.QtWidgets import QMainWindow, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QFileDialog , QLCDNumber
 import platform
 import serialportcontext 
 import threading
@@ -12,7 +12,7 @@ import serial
 
 from Ui_mainwindow import Ui_MainWindow
 from monitor.machine_mointor import Machine
-
+import pnael 
 
 
 
@@ -42,6 +42,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             #todo:scan system serial port
             self.__scanSerialPorts__()
+            
         
         bauds = ["50","75","134","110","150","200","300","600","1200","2400","4800","9600","14400","19200","38400","56000","57600",
                  "115200"];
@@ -62,6 +63,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         #self._auto_send_signal.connect(self.__auto_send_update__)
         
+        #self.xAxis
+        
         port = self.comboBoxPort.currentText()
         baud = int("%s" % self.comboBoxBaud.currentText(),10)
         self._serial_context_ = serialportcontext.SerialPortContext(port = port,baud = baud)
@@ -75,6 +78,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
        # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
         self.actionSend.triggered.connect(self.__open_send_file__)
         self._send_file_data = ''
+        self.numberx = 0
+        self.numbery = 0
+        self.numberz = 0
         #self.__control__()
         self.actionControl.triggered.connect(self.__control__)
         
@@ -111,26 +117,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         filename = QFileDialog.getOpenFileName(self, caption="Open Send File")
         print("123")
         try:
-           
-            if filename and 1:
+
+            if filename and 0:
                 print(filename)
                 self._send_file_ = open(filename, 'r', encoding='UTF-8')
                 while True:
                     print("g1",filename )
-                    line = self._send_file_.readline()
+                    line = self._send_file_.readlines()
+                    
+                    print(line)
                     if not line:
                         break
                     else:
                         self._send_file_data += line
                 self._send_file_.close()
                 self._send_file_ = None
-            self.textEditSent.clear()
+            #self.textEditSent.clear()
             if len(self._send_file_data) > 0:
                 print("123", self._send_file_data)
                 self.textEditSent.setText(self._send_file_data)
             
         except Exception as e:
-            print(e)
+            print(e)  
+        
             #QtGui.QMessageBox.critical(self,u"打开文件",u"无法打开文件,请检查!")
             
     def __unlockMachine__(self):
@@ -139,26 +148,41 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
     def __yAxisup__(self):
         print("yAxisup")
+        getstep = self.stepbox.value()
+        print(getstep)
+        self.numbery = pnael.__pane__(self.numbery, getstep)
+        self.yAxis.display(self.numbery)
         pass
         
     def __yAxisdown__(self):
         print("yAxisdown")
+        self.numbery = pnael.__minerse__(self.numbery, self.stepbox.value())
+        self.yAxis.display(self.numbery)
         pass
         
     def __xAxisrigh__(self):
         print("xAxisright")
+        self.numberx = pnael.__pane__(self.numberx, self.stepbox.value())
+        print(self.numberx)
+        self.xAxis.display(self.numberx)
         pass
         
     def __xAxisleft__(self):
         print("xAxisleft")
+        self.numberx = pnael.__minerse__(self.numberx, self.stepbox.value())
+        self.xAxis.display(self.numberx)
         pass
         
     def __zupButton__(self):
         print("zupButton")
+        self.numberz = pnael.__pane__(self.numberz, self.stepbox.value())
+        self.zAxis.display(self.numberz)
         pass
         
     def __zdownButton__(self):
         print("zdownButton")
+        self.numberz = pnael.__minerse__(self.numberz, self.stepbox.value())
+        self.zAxis.display(self.numberz)
         pass
     
      
@@ -192,6 +216,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #print("gogog", data)
         for l in range(len(data)):
             self.textEditReceived.insertPlainText(data[l])
+            
+        for c in range(len(data)):
+            #self.textEditReceived2.verticalScrollBar().setValue(self.textEditReceived2.verticalScrollBar().minimum())
+            self.textEditReceived2.insertPlainText(data[c])
+            
                 
         #if self.checkBoxNewLine.isChecked():
         #    self.textEditReceived.insertPlainText("\n")
@@ -264,6 +293,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def __send_data__(self):
         data = str(self.textEditSent.toPlainText()+'\n')
+        print("i m data", data)
         if self._serial_context_.isRunning():
             if len(data) > 0:
                 self._serial_context_.send(data, 0)
@@ -304,6 +334,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot()
     def on_homeButton_clicked(self):
         print("test the button")
+        self.numberx = 0
+        self.numbery = 0
+        self.numberz = 0
+        
+        self.xAxis.display(self.numberx)
+        self.yAxis.display(self.numbery)
+        self.zAxis.display(self.numberz)
+        
         data = str('G29'+'\n')
         if self._serial_context_.isRunning():
             if len(data) > 0:

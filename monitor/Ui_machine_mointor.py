@@ -119,10 +119,8 @@ class Ui_Dialog(object):
         self.label_3.setText(_translate("Dialog", "X"))
         self.label_4.setText(_translate("Dialog", "Y"))
         self.label_5.setText(_translate("Dialog", "Z"))
-        
 
 
-'''
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -131,4 +129,4 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
-'''
+
