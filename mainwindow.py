@@ -15,6 +15,9 @@ from monitor.machine_mointor import Machine
 import pnael 
 
 
+import pyqtgraph as pg
+import pyqtgraph.opengl as gl
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     """ 
@@ -77,6 +80,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._receive_signal.connect(self.__display_recv_data__)
        # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
         self.actionSend.triggered.connect(self.__open_send_file__)
+        self.actionOpenGL.triggered.connect(self.__teset__)
         self._send_file_data = ''
         self.numberx = 0
         self.numbery = 0
@@ -93,6 +97,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.zupButton.clicked.connect(self.__zupButton__)
         self.zdownButton.clicked.connect(self.__zdownButton__)
         
+
         
      
 
@@ -102,6 +107,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     
     def __teset__(self):
+        
+        self.openGLWidget = gl.GLViewWidget()
+        self.openGLWidget.show()
+        self.openGLWidget.setWindowTitle('pyqtgraph example: GLMeshItem')
+        self.openGLWidget.setCameraPosition(distance=40)
+
+        g = gl.GLGridItem()
+        g.scale(2,2,1)
+        self.openGLWidget.addItem(g)
+
         print("I'm test")
         
         
@@ -152,12 +167,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print(getstep)
         self.numbery = pnael.__pane__(self.numbery, getstep)
         self.yAxis.display(self.numbery)
+        ## do for the project to went the gcode (+)
+        text = str(getstep)
+        data = str('G91'+'\n'+'G01'+ 'y'+text+'\n'+ 'G90'+'\n')
+        if self._serial_context_.isRunning():
+            if len(data) > 0:
+                self._serial_context_.send(data, 0)
         pass
         
     def __yAxisdown__(self):
         print("yAxisdown")
         self.numbery = pnael.__minerse__(self.numbery, self.stepbox.value())
         self.yAxis.display(self.numbery)
+        ## do for the project to wend the gcode  (-)
+        text = str(-1*self.stepbox.value())
+        print(text)
+        data = str('G91'+'\n'+'G01'+ 'y'+text+'\n'+ 'G90'+'\n')
+        if self._serial_context_.isRunning():
+            if len(data) > 0:
+                self._serial_context_.send(data, 0)
         pass
         
     def __xAxisrigh__(self):
@@ -330,6 +358,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     #self._auto_send_signal.emit()
                         
             time.sleep(delay)
+            
             
     @pyqtSlot()
     def on_homeButton_clicked(self):
