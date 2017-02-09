@@ -1,4 +1,4 @@
-# PyQt4 imports
+
 from PyQt5 import QtGui, QtCore, QtOpenGL, QtWidgets
 from PyQt5.QtOpenGL import QGLWidget
 # PyOpenGL imports

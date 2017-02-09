@@ -3,7 +3,7 @@
 from PyQt5 import QtWidgets , QtCore
 from PyQt5.QtCore import pyqtSlot
 
-from PyQt5.QtWidgets import QMainWindow, QFileDialog , QLCDNumber
+from PyQt5.QtWidgets import QMainWindow, QFileDialog , QLCDNumber, QOpenGLWidget
 import platform
 import serialportcontext 
 import threading
@@ -97,6 +97,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.zupButton.clicked.connect(self.__zupButton__)
         self.zdownButton.clicked.connect(self.__zdownButton__)
         
+        
 
         
      
@@ -108,14 +109,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def __teset__(self):
         
+        #self.GLWidget = QOpenGLWidget()
+        
         self.openGLWidget = gl.GLViewWidget()
+        self.horizontalLayout.insertWidget(0, self.openGLWidget)
         self.openGLWidget.show()
-        self.openGLWidget.setWindowTitle('pyqtgraph example: GLMeshItem')
-        self.openGLWidget.setCameraPosition(distance=40)
-
+        
+        
         g = gl.GLGridItem()
         g.scale(2,2,1)
         self.openGLWidget.addItem(g)
+        #plot = pg.PlotWidget()
+        #self.openGLWidget = QOpenGLWidget()
+        #self.openGLWidget = gl.GLViewWidget()
+        #self.openGLWidget.setCameraPosition(distance=40)
+        #self.openGLWidget.addWidget(plot) 
+        #self.openGLWidget.show()
+        #123
+        #self.openGLWidget.setWindowTitle('pyqtgraph example: GLMeshItem')
+        #self.openGLWidget.setCameraPosition(distance=40)
+
+
 
         print("I'm test")
         
@@ -377,6 +391,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self._serial_context_.send(data, 0)
 #        MainWindow.__test__send(self, data)
         #self.__test__send(self, data)
+        
 
 
     
@@ -388,3 +403,5 @@ if __name__ == "__main__":
     run = MainWindow()
     run.show()
     sys.exit(app.exec_())
+    
+

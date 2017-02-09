@@ -642,15 +642,16 @@ p, li { white-space: pre-wrap; }
      </widget>
     </widget>
    </widget>
-   <widget class="QOpenGLWidget" name="openGLWidget">
+   <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>460</y>
-      <width>300</width>
-      <height>200</height>
+      <x>50</x>
+      <y>450</y>
+      <width>321</width>
+      <height>201</height>
      </rect>
     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout"/>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
