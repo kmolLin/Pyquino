@@ -8,31 +8,33 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(700, 539)
-        self.gridLayoutWidget = QtWidgets.QWidget(Form)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(40, 30, 601, 441))
-        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout.setObjectName("gridLayout")
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(751, 612)
+        Dialog.setSizeGripEnabled(True)
+        self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 20, 721, 571))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
+        self.verticalLayout.setContentsMargins(1, 1, 1, 1)
+        self.verticalLayout.setObjectName("verticalLayout")
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-    def retranslateUi(self, Form):
+    def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
+    Dialog = QtWidgets.QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
     sys.exit(app.exec_())
 

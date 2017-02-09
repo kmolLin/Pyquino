@@ -12,6 +12,7 @@ import serial
 
 from Ui_mainwindow import Ui_MainWindow
 from monitor.machine_mointor import Machine
+from graphy.graphy import Dialog
 import pnael 
 
 
@@ -109,8 +110,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def __teset__(self):
         
-        #self.GLWidget = QOpenGLWidget()
+        dlg1 = Dialog()
+        dlg1.show()
+        if dlg1.exec_(): pass
         
+        #self.GLWidget = QOpenGLWidget()
+        """
         self.openGLWidget = gl.GLViewWidget()
         self.horizontalLayout.insertWidget(0, self.openGLWidget)
         self.openGLWidget.show()
@@ -128,9 +133,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #123
         #self.openGLWidget.setWindowTitle('pyqtgraph example: GLMeshItem')
         #self.openGLWidget.setCameraPosition(distance=40)
-
-
-
+        """
         print("I'm test")
         
         
