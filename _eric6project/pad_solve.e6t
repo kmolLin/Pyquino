@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
 <!-- eric6 tasks file for project pad_solve -->
-<!-- Saved: 2017-02-19, 13:45:10 -->
+<!-- Saved: 2017-02-19, 14:52:08 -->
 <Tasks version="6.0">
   <ProjectScanFilter></ProjectScanFilter>
-  <Task priority="1" completed="False" type="1" uid="{dcf7e95a-ca74-4161-96bd-771124192644}">
+  <Task priority="1" completed="False" type="1" uid="{f6f5bdcc-e02c-47d7-9c86-b06eb81e2046}">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2017-02-19, 13:45:07</Created>
+    <Created>2017-02-19, 14:51:39</Created>
+    <Resource>
+      <Filename>Y:/eric6_workspace/PyQt5-pyserial/mainwindow.py</Filename>
+      <Linenumber>418</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{efaecbc7-61cf-443f-8171-857656de82f9}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2017-02-19, 14:51:39</Created>
     <Resource>
       <Filename>mainwindow.py</Filename>
       <Linenumber>418</Linenumber>

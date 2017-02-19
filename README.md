@@ -1,7 +1,7 @@
-Pyserial gui use PyQt5
+Pyquino
 ===
 
-A Gui-Base tools with pyserial and PyQt5 for communcation to another machine.
+A Gui-Base tools with pyserial and PyQt5 for communcation to machine.
 
 How to use it ?
 ---
@@ -9,7 +9,7 @@ How to use it ?
 Open GUI by Python:
 
 <pre>
-$python3 mainwindow.py
+$python3 launchPyquino.py
 </pre>
 
 

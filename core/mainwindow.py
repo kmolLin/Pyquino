@@ -5,14 +5,14 @@ from PyQt5.QtCore import pyqtSlot
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog , QLCDNumber, QOpenGLWidget
 import platform
-import serialportcontext 
+from . import serialportcontext
 import threading
 import time
 import serial
 
-from Ui_mainwindow import Ui_MainWindow
-from monitor.machine_mointor import Machine
-from graphy.graphy import Dialog
+from .Ui_mainwindow import Ui_MainWindow
+from .monitor.machine_mointor import Machine
+from .graphy.graphy import Dialog
 import pnael 
 
 
@@ -204,14 +204,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if len(data) > 0:
                 self._serial_context_.send(data, 0)
         pass
-        
+    
     def __xAxisrigh__(self):
         print("xAxisright")
         self.numberx = pnael.__pane__(self.numberx, self.stepbox.value())
         print(self.numberx)
         self.xAxis.display(self.numberx)
         pass
-        
+            
     def __xAxisleft__(self):
         print("xAxisleft")
         self.numberx = pnael.__minerse__(self.numberx, self.stepbox.value())
@@ -265,8 +265,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             sb.setValue(sb.maximum())
             
         for c in range(len(data)):
-            #self.textEditReceived2.verticalScrollBar().setValue(self.textEditReceived2.verticalScrollBar().minimum())
+            
             self.textEditReceived2.insertPlainText(data[c])
+            sb = self.textEditReceived.verticalScrollBar()
+            sb.setValue(sb.maximum())
             
                 
         #if self.checkBoxNewLine.isChecked():
@@ -400,7 +402,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     
-    
+'''
     
 if __name__ == "__main__":
     import sys
@@ -408,6 +410,8 @@ if __name__ == "__main__":
     run = MainWindow()
     run.show()
     sys.exit(app.exec_())
+
+'''
  
 ''' 
     @pyqtSlot()
