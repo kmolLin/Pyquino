@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project pad_solve -->
-<!-- Saved: 2017-02-06, 20:22:06 -->
+<!-- Saved: 2017-02-09, 22:13:52 -->
 <!-- Copyright (C) 2017 you-sheng,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -21,12 +21,21 @@
     <Source>Y:/eric6_workspace/PyQt5-pyserial/serialportedittext.py</Source>
     <Source>Y:/eric6_workspace/PyQt5-pyserial/test1.py</Source>
     <Source>__init__.py</Source>
+    <Source>graphy/Ui_graphy.py</Source>
+    <Source>graphy/graphy.py</Source>
+    <Source>graphy_test.py</Source>
     <Source>mainwindow.py</Source>
+    <Source>monitor/Ui_machine_mointor.py</Source>
+    <Source>monitor/machine_mointor.py</Source>
+    <Source>opgl_class.py</Source>
+    <Source>pnael.py</Source>
     <Source>serialportcontext.py</Source>
     <Source>serialportedittext.py</Source>
     <Source>test1.py</Source>
   </Sources>
   <Forms>
+    <Form>graphy/graphy.ui</Form>
+    <Form>graphy/graphy.ui</Form>
     <Form>mainwindow.ui</Form>
   </Forms>
   <Translations/>

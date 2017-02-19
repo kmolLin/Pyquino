@@ -261,6 +261,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #print("gogog", data)
         for l in range(len(data)):
             self.textEditReceived.insertPlainText(data[l])
+            sb = self.textEditReceived.verticalScrollBar()
+            sb.setValue(sb.maximum())
             
         for c in range(len(data)):
             #self.textEditReceived2.verticalScrollBar().setValue(self.textEditReceived2.verticalScrollBar().minimum())
@@ -406,5 +408,13 @@ if __name__ == "__main__":
     run = MainWindow()
     run.show()
     sys.exit(app.exec_())
-    
-
+ 
+''' 
+    @pyqtSlot()
+    def on_textEditReceived_textChanged(self):
+        """
+        Slot documentation goes here.
+        """
+        # TODO: not implemented yet
+        raise NotImplementedError
+        '''

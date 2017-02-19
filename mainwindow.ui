@@ -231,6 +231,9 @@
       <property name="text">
        <string>send</string>
       </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QTextEdit" name="textEditReceived">
       <property name="geometry">

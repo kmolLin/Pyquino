@@ -81,6 +81,7 @@ class Ui_MainWindow(object):
         self.pushButtonOpenSerial.setObjectName("pushButtonOpenSerial")
         self.pushButtonSendData = QtWidgets.QPushButton(self.tab)
         self.pushButtonSendData.setGeometry(QtCore.QRect(740, 210, 61, 171))
+        self.pushButtonSendData.setAutoDefault(True)
         self.pushButtonSendData.setObjectName("pushButtonSendData")
         self.textEditReceived = QtWidgets.QTextEdit(self.tab)
         self.textEditReceived.setGeometry(QtCore.QRect(260, 20, 541, 181))

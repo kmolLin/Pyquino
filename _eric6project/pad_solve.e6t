@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
 <!-- eric6 tasks file for project pad_solve -->
-<!-- Saved: 2017-02-09, 09:25:07 -->
+<!-- Saved: 2017-02-19, 13:45:10 -->
 <Tasks version="6.0">
   <ProjectScanFilter></ProjectScanFilter>
+  <Task priority="1" completed="False" type="1" uid="{dcf7e95a-ca74-4161-96bd-771124192644}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2017-02-19, 13:45:07</Created>
+    <Resource>
+      <Filename>mainwindow.py</Filename>
+      <Linenumber>418</Linenumber>
+    </Resource>
+  </Task>
 </Tasks>
