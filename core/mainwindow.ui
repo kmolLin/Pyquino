@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Pyqtuino</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../icons.qrc">
+    <normaloff>:/icons/serialport.png</normaloff>:/icons/serialport.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
@@ -311,7 +315,7 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
+        <iconset resource="../icons.qrc">
          <normaloff>:/icons/arrow-up-b.png</normaloff>:/icons/arrow-up-b.png</iconset>
        </property>
        <property name="iconSize">
@@ -334,7 +338,7 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
+        <iconset resource="../icons.qrc">
          <normaloff>:/icons/arrow-left-b.png</normaloff>:/icons/arrow-left-b.png</iconset>
        </property>
        <property name="iconSize">
@@ -357,7 +361,7 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
+        <iconset resource="../icons.qrc">
          <normaloff>:/icons/arrow-right-b.png</normaloff>:/icons/arrow-right-b.png</iconset>
        </property>
        <property name="iconSize">
@@ -380,7 +384,7 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
+        <iconset resource="../icons.qrc">
          <normaloff>:/icons/arrow-down-b.png</normaloff>:/icons/arrow-down-b.png</iconset>
        </property>
        <property name="iconSize">
@@ -403,7 +407,7 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
+        <iconset resource="../icons.qrc">
          <normaloff>:/icons/arrow-up-a.png</normaloff>:/icons/arrow-up-a.png</iconset>
        </property>
        <property name="iconSize">
@@ -426,7 +430,7 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
+        <iconset resource="../icons.qrc">
          <normaloff>:/icons/arrow-down-a.png</normaloff>:/icons/arrow-down-a.png</iconset>
        </property>
        <property name="iconSize">
@@ -724,7 +728,7 @@ p, li { white-space: pre-wrap; }
   </action>
  </widget>
  <resources>
-  <include location="icons.qrc"/>
+  <include location="../icons.qrc"/>
  </resources>
  <connections/>
 </ui>

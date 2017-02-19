@@ -7,5 +7,6 @@
         <file>icons/arrow-right-b.png</file>
         <file>icons/arrow-up-a.png</file>
         <file>icons/arrow-up-b.png</file>
+        <file>icons/serialport.png</file>
 </qresource>
 </RCC>

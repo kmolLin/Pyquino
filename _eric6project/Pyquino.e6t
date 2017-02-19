@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
 <!-- eric6 tasks file for project Pyquino -->
-<!-- Saved: 2017-02-19, 16:01:24 -->
+<!-- Saved: 2017-02-19, 16:55:46 -->
 <Tasks version="6.0">
   <ProjectScanFilter></ProjectScanFilter>
   <Task priority="1" completed="False" type="1" uid="{de669211-f8aa-4185-afcc-b78927690505}">
@@ -22,10 +22,10 @@
       <Linenumber>422</Linenumber>
     </Resource>
   </Task>
-  <Task priority="1" completed="False" type="1" uid="{5c245a76-238b-4bff-96f6-c4ee41323c40}">
+  <Task priority="1" completed="False" type="1" uid="{ff8497c1-eb4e-4c80-801a-21c2f6865bb2}">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2017-02-19, 16:01:21</Created>
+    <Created>2017-02-19, 16:55:43</Created>
     <Resource>
       <Filename>core/mainwindow.py</Filename>
       <Linenumber>422</Linenumber>

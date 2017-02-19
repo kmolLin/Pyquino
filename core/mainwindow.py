@@ -267,7 +267,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for c in range(len(data)):
             
             self.textEditReceived2.insertPlainText(data[c])
-            sb = self.textEditReceived.verticalScrollBar()
+            sb = self.textEditReceived2.verticalScrollBar()
             sb.setValue(sb.maximum())
             
                 
