@@ -1,0 +1,4 @@
+pyopengl
+PyQtGraph
+pyserial
+

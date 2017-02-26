@@ -15,6 +15,7 @@ from .monitor.machine_mointor import Machine
 from .graphy.graphy import Dialog
 import pnael 
 
+from .vrep.vrep_setting import vrepsetting
 
 import pyqtgraph as pg
 import pyqtgraph.opengl as gl
@@ -82,6 +83,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
        # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
         self.actionSend.triggered.connect(self.__open_send_file__)
         self.actionOpenGL.triggered.connect(self.__teset__)
+        self.actionVrep.triggered.connect(self.__teset__)
         self._send_file_data = ''
         self.numberx = 0
         self.numbery = 0
@@ -110,9 +112,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def __teset__(self):
         
-        dlg1 = Dialog()
+        dlg1 = vrepsetting()
         dlg1.show()
         if dlg1.exec_(): pass
+        
         
         #self.GLWidget = QOpenGLWidget()
         """

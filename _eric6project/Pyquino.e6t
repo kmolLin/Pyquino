@@ -1,34 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
 <!-- eric6 tasks file for project Pyquino -->
-<!-- Saved: 2017-02-19, 16:55:46 -->
+<!-- Saved: 2017-02-26, 16:15:12 -->
 <Tasks version="6.0">
   <ProjectScanFilter></ProjectScanFilter>
-  <Task priority="1" completed="False" type="1" uid="{de669211-f8aa-4185-afcc-b78927690505}">
+  <Task priority="1" completed="False" type="1" uid="{5d8e266e-8254-4f26-b12e-e0ecc4840841}">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2017-02-19, 14:52:45</Created>
-    <Resource>
-      <Filename>Y:/eric6_workspace/PyQt5-pyserial/mainwindow.py</Filename>
-      <Linenumber>418</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{e5da801d-e99f-4f0c-a2bf-35ffadb127da}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2017-02-19, 15:48:42</Created>
-    <Resource>
-      <Filename>mainwindow.py</Filename>
-      <Linenumber>422</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{ff8497c1-eb4e-4c80-801a-21c2f6865bb2}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2017-02-19, 16:55:43</Created>
+    <Created>2017-02-26, 16:15:09</Created>
     <Resource>
       <Filename>core/mainwindow.py</Filename>
-      <Linenumber>422</Linenumber>
+      <Linenumber>425</Linenumber>
     </Resource>
   </Task>
 </Tasks>
