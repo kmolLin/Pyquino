@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from PyQt5 import QtWidgets , QtCore
-from PyQt5.QtCore import pyqtSlot
-
-from PyQt5.QtWidgets import QMainWindow, QFileDialog , QLCDNumber, QOpenGLWidget
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 import platform
 from . import serialportcontext
 import threading
@@ -31,6 +31,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+        '''
+        pal = QPalette()
+        pal.setColor(QPalette.Background, QColor(125,125 ,125))
+        
+        self.setAutoFillBackground(True)
+        self.setPalette(pal)
+        '''
         self.initForms()
 
         #self.comboBoxBaud.setCurrentIndex(len(bauds) - 1)        
@@ -82,7 +89,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._receive_signal.connect(self.__display_recv_data__)
        # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
         self.actionSend.triggered.connect(self.__open_send_file__)
-        self.actionOpenGL.triggered.connect(self.__teset__)
+        self.actionOpenGL.triggered.connect(self.__opengl__)
         self.actionVrep.triggered.connect(self.__teset__)
         self._send_file_data = ''
         self.numberx = 0
@@ -139,7 +146,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         print("I'm test")
         
+
+    def __opengl__(self):
+        dlg2 = Dialog()
+        dlg2.show()
+        if dlg2.exec_(): pass
         
+
+    
     def __control__(self):
         print("control open")
         

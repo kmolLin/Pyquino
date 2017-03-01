@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
+<!-- eric6 tasks file for project Pyquino -->
+<!-- Saved: 2017-03-01, 18:13:40 -->
+<Tasks version="6.0">
+  <ProjectScanFilter></ProjectScanFilter>
+  <Task priority="1" completed="False" type="1" uid="{712bafc8-fcaf-402f-9549-a29044f81298}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2017-03-01, 18:13:37</Created>
+    <Resource>
+      <Filename>core/mainwindow.py</Filename>
+      <Linenumber>439</Linenumber>
+    </Resource>
+  </Task>
+</Tasks>
