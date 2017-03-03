@@ -299,7 +299,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for i in range(32):
             ports.append("/dev/ttyS%d" % i)
         for i in range(32):
-            ports.append("/dev/ttyUSB%d" % i)
+            ports.append("/dev/ttyACM%d" % i)
         self.comboBoxPort.addItems(ports)
         
     def __open_serial_port__(self):
