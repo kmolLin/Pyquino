@@ -7,6 +7,8 @@ A Gui-Base tools with pyserial and PyQt5 for communcation to machine.
 
 and will control the simulation of Vrep.
 
+![](icons/cover.png)
+
 How to use it ?
 ---
 

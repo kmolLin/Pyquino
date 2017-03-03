@@ -8,5 +8,6 @@
         <file>icons/arrow-up-a.png</file>
         <file>icons/arrow-up-b.png</file>
         <file>icons/serialport.png</file>
+        <file>icons/usb.png</file>
 </qresource>
 </RCC>
