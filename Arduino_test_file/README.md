@@ -1,4 +1,4 @@
-python Example
+Arduino Example
 ===
 
 use Arduino Ide upload the code in the example code.
