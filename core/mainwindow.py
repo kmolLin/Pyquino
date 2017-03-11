@@ -27,7 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     """
     _receive_signal = QtCore.pyqtSignal(str)
     _auto_send_signal = QtCore.pyqtSignal()
-    def __init__(self, parent=None):
+    def __init__(self, args, parent=None):
         
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
@@ -38,6 +38,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setAutoFillBackground(True)
         self.setPalette(pal)
         '''
+        print(args)
         self.initForms()
 
         #self.comboBoxBaud.setCurrentIndex(len(bauds) - 1)        
@@ -54,10 +55,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             #todo:scan system serial port
             self.__scanSerialPorts__()
-            
         
         bauds = ["50","75","134","110","150","200","300","600","1200","2400","4800","9600","14400","19200","38400","56000","57600",
-                 "115200"];
+            "115200"]
         self.comboBoxBaud.addItems(bauds)
         self.comboBoxBaud.setCurrentIndex(len(bauds) - 1)
         
@@ -65,7 +65,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.comboBoxCheckSum.addItems(checks)
         self.comboBoxCheckSum.setCurrentIndex(len(checks) - 1)
         
-        bits = ["4 Bits","5 Bits","6 Bits" ,"7 Bits","8 Bits"]
+        bits = ["4 Bits", "5 Bits","6 Bits", "7 Bits", "8 Bits"]
         self.comboBoxBits.addItems(bits)
         self.comboBoxBits.setCurrentIndex(len(bits) - 1)
         
@@ -78,7 +78,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.xAxis
         
         port = self.comboBoxPort.currentText()
-        baud = int("%s" % self.comboBoxBaud.currentText(),10)
+        baud = int("%s" % self.comboBoxBaud.currentText(), 10)
         self._serial_context_ = serialportcontext.SerialPortContext(port = port,baud = baud)
         
 #        self.lineEditReceivedCounts.setText("0")
@@ -106,31 +106,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.xAxisleft.clicked.connect(self.__xAxisleft__)
         self.zupButton.clicked.connect(self.__zupButton__)
         self.zdownButton.clicked.connect(self.__zdownButton__)
-        
-        
-
-        
-     
-
    # def __auto_send_update__(self):
-    #    self.lineEditSentCounts.setText("%d" % self._serial_context_.getSendCounts())
-    
-    
+   #    self.lineEditSentCounts.setText("%d" % self._serial_context_.getSendCounts())
     
     def __teset__(self):
-        
         dlg1 = vrepsetting()
         dlg1.show()
         if dlg1.exec_(): pass
-        
-        
         #self.GLWidget = QOpenGLWidget()
         """
         self.openGLWidget = gl.GLViewWidget()
         self.horizontalLayout.insertWidget(0, self.openGLWidget)
         self.openGLWidget.show()
-        
-        
         g = gl.GLGridItem()
         g.scale(2,2,1)
         self.openGLWidget.addItem(g)
@@ -145,56 +132,45 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.openGLWidget.setCameraPosition(distance=40)
         """
         print("I'm test")
-        
-
+    
     def __opengl__(self):
         dlg2 = Dialog()
         dlg2.show()
         if dlg2.exec_(): pass
-        
-
     
     def __control__(self):
         print("control open")
-        
         dlg = Machine()
         dlg.show()
         if dlg.exec_(): pass
-
-        
+    
     def __open_send_file__(self):
         filename = QFileDialog.getOpenFileName(self, caption="Open Send File")
         print("123")
         try:
-
             if filename and 0:
                 print(filename)
                 self._send_file_ = open(filename, 'r', encoding='UTF-8')
                 while True:
                     print("g1",filename )
                     line = self._send_file_.readlines()
-                    
                     print(line)
-                    if not line:
-                        break
-                    else:
-                        self._send_file_data += line
+                    if not line: break
+                    else: self._send_file_data += line
                 self._send_file_.close()
                 self._send_file_ = None
             #self.textEditSent.clear()
             if len(self._send_file_data) > 0:
                 print("123", self._send_file_data)
                 self.textEditSent.setText(self._send_file_data)
-            
         except Exception as e:
-            print(e)  
-        
+            print(e)
             #QtGui.QMessageBox.critical(self,u"打开文件",u"无法打开文件,请检查!")
-            
+    
     def __unlockMachine__(self):
         print("unlock")
         pass
-        
+    
     def __yAxisup__(self):
         print("yAxisup")
         getstep = self.stepbox.value()
@@ -205,10 +181,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         text = str(getstep)
         data = str('G91'+'\n'+'G01'+ 'y'+text+'\n'+ 'G90'+'\n')
         if self._serial_context_.isRunning():
-            if len(data) > 0:
-                self._serial_context_.send(data, 0)
+            if len(data) > 0: self._serial_context_.send(data, 0)
         pass
-        
+    
     def __yAxisdown__(self):
         print("yAxisdown")
         self.numbery = pnael.__minerse__(self.numbery, self.stepbox.value())
@@ -218,8 +193,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print(text)
         data = str('G91'+'\n'+'G01'+ 'y'+text+'\n'+ 'G90'+'\n')
         if self._serial_context_.isRunning():
-            if len(data) > 0:
-                self._serial_context_.send(data, 0)
+            if len(data) > 0: self._serial_context_.send(data, 0)
         pass
     
     def __xAxisrigh__(self):
@@ -228,37 +202,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print(self.numberx)
         self.xAxis.display(self.numberx)
         pass
-            
+    
     def __xAxisleft__(self):
         print("xAxisleft")
         self.numberx = pnael.__minerse__(self.numberx, self.stepbox.value())
         self.xAxis.display(self.numberx)
         pass
-        
+    
     def __zupButton__(self):
         print("zupButton")
         self.numberz = pnael.__pane__(self.numberz, self.stepbox.value())
         self.zAxis.display(self.numberz)
         pass
-        
+    
     def __zdownButton__(self):
         print("zdownButton")
         self.numberz = pnael.__minerse__(self.numberz, self.stepbox.value())
         self.zAxis.display(self.numberz)
         pass
     
-     
     def __handle_send_looping__(self):
         if self._is_auto_sending:
             self._is_auto_sending = False
             self.pushButtonSendData.setEnabled(True)
-     
-     
+    
     def __clear_all_counts(self):
        # self.lineEditReceivedCounts.setText("0")
        # self.lineEditSentCounts.setText("0")
         self._serial_context_.clearAllCounts()
-        
+    
     def __clear_send_counts(self):
         self._serial_context_.clearSentCounts()
         #self.lineEditSentCounts.setText("0")
@@ -266,34 +238,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __clear_recv_counts(self):
         self._serial_context_.clearRecvCounts()
        # self.lineEditReceivedCounts.setText("0")
-
+    
     def __set_display_hex__(self):
         self.textEditReceived.clear()    
     
     def __display_recv_data__(self,data):
         #for l in range(len(data)):
-         #   hexstr = "%02X " % ord(str(data[l]))
-          #  self.textEditReceived.insertPlainText(hexstr)
-          
+        #   hexstr = "%02X " % ord(str(data[l]))
+        #  self.textEditReceived.insertPlainText(hexstr)
         #print("gogog", data)
         for l in range(len(data)):
             self.textEditReceived.insertPlainText(data[l])
             sb = self.textEditReceived.verticalScrollBar()
             sb.setValue(sb.maximum())
-            
         for c in range(len(data)):
-            
             self.textEditReceived2.insertPlainText(data[c])
             sb = self.textEditReceived2.verticalScrollBar()
             sb.setValue(sb.maximum())
-            
-                
         #if self.checkBoxNewLine.isChecked():
         #    self.textEditReceived.insertPlainText("\n")
-                    
-       # self.lineEditReceivedCounts.setText("%d" % self._serial_context_.getRecvCounts())
-
-                
+        # self.lineEditReceivedCounts.setText("%d" % self._serial_context_.getRecvCounts())
+    
     def __scanSerialPorts__(self):
         ports = []
         for i in range(32):
@@ -301,7 +266,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for i in range(32):
             ports.append("/dev/ttyACM%d" % i)
         self.comboBoxPort.addItems(ports)
-        
+    
     def __open_serial_port__(self):
         if  self._serial_context_.isRunning():
             self._serial_context_.close()
@@ -322,27 +287,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self._serial_context_.open()
                 print("5")
                 self.pushButtonOpenSerial.setText(u'close')
-                
             except Exception as e:
                 print("error")
                 #QtGui.QMessageBox.critical(self,u"打开端口",u"打开端口失败,请检查!")
-                
-    def __clear_recv_area__(self):
-        self.textEditReceived.clear()
-        
-    def __clear_send_area__(self):
-        self.textEditSent.clear()
     
-    def closeEvent(self,event):
+    def __clear_recv_area__(self): self.textEditReceived.clear()
+    def __clear_send_area__(self): self.textEditSent.clear()
+    
+    def closeEvent(self, event):
         self._is_auto_sending = False
         if self._serial_context_.isRunning():
             self._serial_context_.close()
-       # if self._recv_file_ != None:
+        # if self._recv_file_ != None:
             print("123")
            # self._recv_file_.flush()
            # self._recv_file_.close()
     
-        
     def __data_received__(self,data):
         print('recv:%s' % data)
         self._receive_signal.emit(data)
@@ -377,9 +337,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                    # self._is_auto_sending = True
                    # self._auto_send_thread.setDaemon(True)
                     #self._auto_send_thread.start()
-                    
-                    
-                    
+    
     def __auto_send__(self,delay):
         while self._is_auto_sending:
             #if self.checkBoxSendFile.isChecked():
@@ -394,10 +352,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if len(data) > 0:
                     self._serial_context_.send(data, 1)
                     #self._auto_send_signal.emit()
-                        
             time.sleep(delay)
-            
-            
+    
     @pyqtSlot()
     def on_homeButton_clicked(self):
         print("test the button")
@@ -415,12 +371,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self._serial_context_.send(data, 0)
 #        MainWindow.__test__send(self, data)
         #self.__test__send(self, data)
-        
-
-
-    
 '''
-    
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -429,13 +380,3 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 
 '''
- 
-''' 
-    @pyqtSlot()
-    def on_textEditReceived_textChanged(self):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
-        '''
