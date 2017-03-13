@@ -40,8 +40,44 @@ class Dialog(QDialog, Ui_Dialog):
         g.scale(2,2,1)
         self.openGLWidget.addItem(g)
         
-        self.__test__()
+        self.__3dtest__()
+        #self.__test__()
         
+    def __3dtest__(self):
+        
+        n = 6
+        pos = np.empty((n, 3))
+        size = np.empty((n))
+        color = np.empty((n, 4))
+        pos[0] = (0,0,0); size[0] = 0.2;   color[0] = (1.0, 0.0, 0.0, 0.5)
+        pos[1] = (0,0,0.6); size[1] = 0.2;   color[1] = (0.0, 0.0, 1.0, 0.5)
+        pos[2] = (0,0,0.6); size[2] = 0.2; color[2] = (0.0, 1.0, 0.0, 0.5)
+        pos[3] = (10.0,0,0.6); size[2] = 0.2; color[3] = (0.0, 1.0, 0.0, 0.5)
+        pos[4] = (0,0,0); size[2] = 0.2; color[4] = (0.0, 1.0, 0.0, 0.5)
+        pos[5] = (-14.2,-13.2,0.6); size[5] = 0.2; color[5] = (0.0, 1.0, 0.0, 0.5)
+        #pos[0] = (1, 0, 1);
+        #for i in range()
+        sp1 = gl.GLScatterPlotItem(pos=pos, size=size, color=color, pxMode=False)
+        sp1.translate(5,5,0)
+        #print(sp1)
+        self.openGLWidget.addItem(sp1)
+        
+        '''
+        #def fn(x, y):
+         #   return np.cos((x**2 + y**2)**0.5)
+
+        n = 51
+        y = np.linspace(-10,10,n)
+        x = np.linspace(-10,10,100)
+        for i in range(n):
+            yi = np.array([y[i]]*100)
+            d = (x**2 + yi**2)**0.5
+            z = 10 * np.cos(d) / (d+1)
+            pts = np.vstack([x,yi,z]).transpose()
+            print(pts)
+            plt = gl.GLLinePlotItem(pos=pts, color=pg.glColor((i,n*1.3)), width=(i+1)/10., antialias=True)
+            self.openGLWidget.addItem(plt)
+        '''
     def __test__(self):
         
         verts = np.array([
