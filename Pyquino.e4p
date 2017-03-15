@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project Pyquino -->
-<!-- Saved: 2017-03-11, 16:37:37 -->
+<!-- Saved: 2017-03-15, 19:39:25 -->
 <!-- Copyright (C) 2017 you-sheng,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -29,6 +29,7 @@
     <Source>core/serialportedittext.py</Source>
     <Source>core/vrep/Ui_vrep_setting.py</Source>
     <Source>core/vrep/vrep_setting.py</Source>
+    <Source>core/vrep/vrep_test.py</Source>
     <Source>core/vrep_remoAPI/one_link_robot_remoteAPI_joint_position.py</Source>
     <Source>core/vrep_remoAPI/vrep.py</Source>
     <Source>core/vrep_remoAPI/vrepConst.py</Source>
@@ -36,6 +37,7 @@
     <Source>launchPyquino.py</Source>
     <Source>opgl_class.py</Source>
     <Source>pnael.py</Source>
+    <Source>test.py</Source>
     <Source>test1.py</Source>
   </Sources>
   <Forms>
@@ -54,6 +56,7 @@
   <Others>
     <Other>Arduino_test_file/README.md</Other>
   </Others>
+  <MainScript>launchPyquino.py</MainScript>
   <Vcs>
     <VcsType>None</VcsType>
   </Vcs>

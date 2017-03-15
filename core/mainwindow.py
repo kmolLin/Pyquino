@@ -17,8 +17,6 @@ import pnael
 
 from .vrep.vrep_setting import vrepsetting
 
-import pyqtgraph as pg
-import pyqtgraph.opengl as gl
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -89,7 +87,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._receive_signal.connect(self.__display_recv_data__)
        # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
         self.actionSend.triggered.connect(self.__open_send_file__)
-        self.actionOpenGL.triggered.connect(self.__opengl__)
+        #self.actionOpenGL.triggered.connect(self.__opengl__)
         self.actionVrep.triggered.connect(self.__teset__)
         self._send_file_data = ''
         self.numberx = 0
@@ -132,12 +130,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.openGLWidget.setCameraPosition(distance=40)
         """
         print("I'm test")
-    
+    '''
     def __opengl__(self):
         dlg2 = Dialog()
         dlg2.show()
         if dlg2.exec_(): pass
-    
+    '''
     def __control__(self):
         print("control open")
         dlg = Machine()
