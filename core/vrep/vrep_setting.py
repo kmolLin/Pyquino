@@ -7,6 +7,7 @@ from .Ui_vrep_setting import Ui_Dialog
 from ..vrep_remoAPI import vrep
 from ..gcode.gcodeParser import *
 import math
+import time
 
 
 la = 347
@@ -118,10 +119,40 @@ class vrepsetting(QDialog, Ui_Dialog):
                 x, y, z = self.parsePostion(i)
                 get = str(x),str(y), str(z)
                 self.gcodeList.addItem(str(get) )
+                self.sendPoisiontoVrep(x, y, z)
                 #print(x, y, z)
         else:
             print("No file")
+            
+    def sendPoisiontoVrep(self, e, r, t):
         
+        vrep.simxFinish(-1)
+        clientID = vrep.simxStart('127.0.0.1', 19998, True, True, 5000, 5)
+        if clientID!= -1:
+            #print("Connected to remote server")
+            time.sleep(0.5)
+            errorCode,plate=vrep.simxGetObjectHandle(clientID,'plate',vrep.simx_opmode_oneshot_wait)
+        
+        
+            if errorCode == -1:
+            #print('Can not find plate')
+                sys.exit()                
+            errorCode=vrep.simxSetObjectPosition(clientID,plate,-1,[e/1000,r/1000,t/1000+0.1165],vrep.simx_opmode_oneshot_wait)
+        #print(e/1000,r/1000,t/1000)
+        else:
+            print('Connection not successful')
+            sys.exit('Could not connect')
+        '''
+        time.sleep(0.5)
+        errorCode,plate=vrep.simxGetObjectHandle(clientID,'plate',vrep.simx_opmode_streaming)
+        
+        
+        if errorCode == -1:
+            #print('Can not find plate')
+            sys.exit()                
+        errorCode=vrep.simxSetObjectPosition(clientID,plate,-1,[e/1000,r/1000,t/1000+0.1165], vrep.simx_opmode_streaming)
+        #print(e/1000,r/1000,t/1000)
+        '''
         
     def renderVertices(self):
         work = readingGcode(self.progressBar, self.model.layers)
@@ -134,25 +165,28 @@ class vrepsetting(QDialog, Ui_Dialog):
     
     @pyqtSlot()
     def on_xAxisleft_clicked(self):
+        test = []
         vrep.simxFinish(-1)         
-        clientID = vrep.simxStart('127.0.0.1', 19997, True, True, 5000, 5)
+        clientID = vrep.simxStart('127.0.0.1', 19999, True, True, 5000, 5)
         deg = math.pi/180
         if clientID!=-1: print("Connected to remote server")
         else:
             print('Connection not successful')
             sys.exit('Could not connect')
-        
-        errorCode, Xaxis_joint = vrep.simxGetObjectHandle(clientID, 'Xaxis_joint', vrep.simx_opmode_oneshot_wait)
+            
+        errorCode, test = vrep.simxGetObjectPosition(clientID,'STL_Imported_sub14',0, vrep.simx_opmode_streaming)
+        #errorCode, Xaxis_joint = vrep.simxSetObjectPosition(clientID, 'Xaxis_joint', vrep.simx_opmode_oneshot_wait)
         
         if errorCode==-1:
             print('Can not find left or right motor')
             sys.exit()
         
         
+        print(test)
         print("test")
         #i =360
-        for i in range(360):
-            errorCode = vrep.simxSetJointPosition(clientID, Xaxis_joint,i*deg, vrep.simx_opmode_oneshot_wait)
+        #for i in range(360):
+        #    errorCode = vrep.simxSetJointPosition(clientID, Xaxis_joint,i*deg, vrep.simx_opmode_oneshot_wait)
         #def setJointPosition(incAngle, steps):
         #    for i  in range(steps): errorCode = vrep.simxSetJointPosition(clientID, jointx, i*incAngle*deg, vrep.simx_opmode_oneshot_wait)
         
