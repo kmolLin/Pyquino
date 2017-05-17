@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# eric6
+_eric6project/
+.eric6project/
