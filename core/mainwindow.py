@@ -12,7 +12,7 @@ import serial
 
 from .Ui_mainwindow import Ui_MainWindow
 from .monitor.machine_mointor import Machine
-from .graphy.graphy import Dialog
+#from .graphy.graphy import Dialog
 import pnael 
 
 from .vrep.vrep_setting import vrepsetting

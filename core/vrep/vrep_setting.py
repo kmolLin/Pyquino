@@ -29,11 +29,12 @@ class readingGcode(QThread):
         self.getProgress.setMaximum(len([e for e in self.layers[0].segments]))
         self.layer_vertices = list()
         for layer in self.layers:
+            '''
             x = layer.start["X"]
             y = layer.start["Y"]
             z = layer.start["Z"]
+            '''
             for seg in layer.segments:
-                self.layer_vertices.append([x, y, z])
                 seg_x = seg.coords["X"]
                 seg_y = seg.coords["Y"]
                 seg_z = seg.coords["Z"]

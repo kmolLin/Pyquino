@@ -9,7 +9,6 @@ from PyQt5.QtWidgets import QDialog
 
 from .Ui_graphy import Ui_Dialog
 
-import pyqtgraph as pg
 
 import pyqtgraph.opengl as gl
 
