@@ -1,12 +1,55 @@
-# -*- coding: utf-8 -*-
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtOpenGL import *
-from PyQt5.QtGui import *
-import OpenGL.GL as gl
+import sys
 import math
-from .Ui_graphy import Ui_Dialog
+
+from PyQt5.QtCore import pyqtSignal, QPoint, QSize, Qt
+from PyQt5.QtGui import QColor
+from PyQt5.QtWidgets import (QApplication, QHBoxLayout, QOpenGLWidget, QSlider,
+                             QWidget)
+
+import OpenGL.GL as gl
+
+
+class Window(QWidget):
+
+    def __init__(self):
+        super(Window, self).__init__()
+
+        self.glWidget = GLWidget()
+
+        self.xSlider = self.createSlider()
+        self.ySlider = self.createSlider()
+        self.zSlider = self.createSlider()
+
+        self.xSlider.valueChanged.connect(self.glWidget.setXRotation)
+        self.glWidget.xRotationChanged.connect(self.xSlider.setValue)
+        self.ySlider.valueChanged.connect(self.glWidget.setYRotation)
+        self.glWidget.yRotationChanged.connect(self.ySlider.setValue)
+        self.zSlider.valueChanged.connect(self.glWidget.setZRotation)
+        self.glWidget.zRotationChanged.connect(self.zSlider.setValue)
+
+        mainLayout = QHBoxLayout()
+        mainLayout.addWidget(self.glWidget)
+        mainLayout.addWidget(self.xSlider)
+        mainLayout.addWidget(self.ySlider)
+        mainLayout.addWidget(self.zSlider)
+        self.setLayout(mainLayout)
+
+        self.xSlider.setValue(15 * 16)
+        self.ySlider.setValue(345 * 16)
+        self.zSlider.setValue(0 * 16)
+
+        self.setWindowTitle("Hello GL")
+
+    def createSlider(self):
+        slider = QSlider(Qt.Vertical)
+
+        slider.setRange(0, 360 * 16)
+        slider.setSingleStep(16)
+        slider.setPageStep(15 * 16)
+        slider.setTickInterval(15 * 16)
+        slider.setTickPosition(QSlider.TicksRight)
+
+        return slider
 
 
 class GLWidget(QOpenGLWidget):
@@ -119,14 +162,13 @@ class GLWidget(QOpenGLWidget):
 
     def makeObject(self):
         genList = gl.glGenLists(1)
-        print(genList)
         gl.glNewList(genList, gl.GL_COMPILE)
 
         gl.glBegin(gl.GL_QUADS)
 
         x1 = +0.06
         y1 = -0.14
-        x2 = +0.14   #14
+        x2 = +0.50   #14
         y2 = -0.06
         x3 = +0.08
         y3 = +0.00
@@ -134,7 +176,7 @@ class GLWidget(QOpenGLWidget):
         y4 = +0.22
 
         self.quad(x1, y1, x2, y2, y2, x2, y1, x1)
-        #self.quad(x3, y3, x4, y4, y4, x4, y3, x3)
+        self.quad(x3, y3, x4, y4, y4, x4, y3, x3)
 
         self.extrude(x1, y1, x2, y2)
         self.extrude(x2, y2, y2, x2)
@@ -203,54 +245,10 @@ class GLWidget(QOpenGLWidget):
     def setColor(self, c):
         gl.glColor4f(c.redF(), c.greenF(), c.blueF(), c.alphaF())
         #c.redF(), c.greenF(), c.blueF(), c.alphaF()
-        
-class MyGLWidget(QOpenGLWidget):
-    
-    def __init__(self, parent=None):
-        QOpenGLWidget(parent)
-    def initializeGL(self):
-        self.f = QOpenGLFunctions()
-        self.f = QOpenGLContext.currentContext().functions()
-        
-    
 
+if __name__ == '__main__':
 
-class Dialog(QDialog, Ui_Dialog):
-    """
-    Class documentation goes here.
-    """
-    def __init__(self, parent=None):
-        super(Dialog, self).__init__(parent)
-        self.setupUi(self)
-      #  self.widget = glWidget(self)
-        self.glWidget = GLWidget()
-        self.verticalLayout.insertWidget(0, self.glWidget)
-       
-
-       # self.openGLWidget.initializeGL()
-#        print(self.openGLWidget.minimumSizeHint())
-#        self.openGLWidget.paintGL()    verticalLayout
-        
-        self.currentX = 0
-        self.currentY = 0
-        self.currentZ = 0
-        
-        
-        
-    
-    @pyqtSlot(int)
-    def on_xhorizontalSlider_sliderMoved(self, position):
-        print('X:', position)
-        self.currentX = position
-
-    
-    @pyqtSlot(int)
-    def on_yhorizontalSlider_sliderMoved(self, position):
-        print('Y:', position)
-        self.currentY = position
-    
-    @pyqtSlot(int)
-    def on_zhorizontalSlider_sliderMoved(self, position):
-        print('Z:', position)
-        self.currentZ = position
-        print(self.currentX, self.currentY, self.currentZ)
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())

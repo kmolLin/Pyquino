@@ -11,24 +11,27 @@ import time
 import serial
 
 from .Ui_mainwindow import Ui_MainWindow
+#from .Ui_mainwindow2 import Ui_MainWindow2
 from .monitor.machine_mointor import Machine
-#from .graphy.graphy import Dialog
+from .graphy.graphy import Dialog
+from .GraphyViewModule import graphy
+from .RightClick import rightClick
 import pnael 
+from .settingForm import SettingForm
 
 from .vrep.vrep_setting import vrepsetting
 
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    """ 
-    Class documentation goes here.
-    """
+
     _receive_signal = QtCore.pyqtSignal(str)
     _auto_send_signal = QtCore.pyqtSignal()
     def __init__(self, args, parent=None):
         
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+        rightClick(self)
         '''
         pal = QPalette()
         pal.setColor(QPalette.Background, QColor(125,125 ,125))
@@ -71,9 +74,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.comboBoxStopBits.addItems(stopbits)
         self.comboBoxStopBits.setCurrentIndex(0)
         
-        #self._auto_send_signal.connect(self.__auto_send_update__)
         
-        #self.xAxis
+        #self._auto_send_signal.connect(self.__auto_send_update__)
         
         port = self.comboBoxPort.currentText()
         baud = int("%s" % self.comboBoxBaud.currentText(), 10)
@@ -87,7 +89,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._receive_signal.connect(self.__display_recv_data__)
        # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
         self.actionSend.triggered.connect(self.__open_send_file__)
-        #self.actionOpenGL.triggered.connect(self.__opengl__)
+        self.actionOpenGL.triggered.connect(self.__opengl__)
         self.actionVrep.triggered.connect(self.__teset__)
         self._send_file_data = ''
         self.numberx = 0
@@ -104,38 +106,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.xAxisleft.clicked.connect(self.__xAxisleft__)
         self.zupButton.clicked.connect(self.__zupButton__)
         self.zdownButton.clicked.connect(self.__zdownButton__)
-   # def __auto_send_update__(self):
-   #    self.lineEditSentCounts.setText("%d" % self._serial_context_.getSendCounts())
+        self.graphyViewModule.insertWidget(1, graphy())
+        # def __auto_send_update__(self):
+        #    self.lineEditSentCounts.setText("%d" % self._serial_context_.getSendCounts())
+   
+    @pyqtSlot(QPoint)
+    def on_treeWidget_context_menu(self, point):
+        action = self.popMenu_treeWidget.exec_(self.treeWidget.mapToGlobal(point))
+        if action == self.action_treeWidget_add:
+            dlg = SettingForm()
+            dlg.show()
+            if dlg.exec_():
+                self.a = dlg.getlist
+                self.reflesh()
+                print(self.a)
+        elif action ==self.action_treeWidget_del:
+            pass
+            
+    def reflesh(self):
+        tree = self.a
+        
     
     def __teset__(self):
         dlg1 = vrepsetting()
         dlg1.show()
         if dlg1.exec_(): pass
         #self.GLWidget = QOpenGLWidget()
-        """
-        self.openGLWidget = gl.GLViewWidget()
-        self.horizontalLayout.insertWidget(0, self.openGLWidget)
-        self.openGLWidget.show()
-        g = gl.GLGridItem()
-        g.scale(2,2,1)
-        self.openGLWidget.addItem(g)
-        #plot = pg.PlotWidget()
-        #self.openGLWidget = QOpenGLWidget()
-        #self.openGLWidget = gl.GLViewWidget()
-        #self.openGLWidget.setCameraPosition(distance=40)
-        #self.openGLWidget.addWidget(plot) 
-        #self.openGLWidget.show()
-        #123
-        #self.openGLWidget.setWindowTitle('pyqtgraph example: GLMeshItem')
-        #self.openGLWidget.setCameraPosition(distance=40)
-        """
         print("I'm test")
-    '''
+    
     def __opengl__(self):
         dlg2 = Dialog()
         dlg2.show()
         if dlg2.exec_(): pass
-    '''
+            #a  = dlg2.a
+    
     def __control__(self):
         print("control open")
         dlg = Machine()
@@ -244,11 +248,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #for l in range(len(data)):
         #   hexstr = "%02X " % ord(str(data[l]))
         #  self.textEditReceived.insertPlainText(hexstr)
-        #print("gogog", data)
+        self.textEditReceived.insertPlainText(data)
+        print("gogog",len(data))
         for l in range(len(data)):
-            self.textEditReceived.insertPlainText(data[l])
+            #self.textEditReceived.insertPlainText(data[l])  
             sb = self.textEditReceived.verticalScrollBar()
             sb.setValue(sb.maximum())
+            #print("test recive", data[l])
         for c in range(len(data)):
             self.textEditReceived2.insertPlainText(data[c])
             sb = self.textEditReceived2.verticalScrollBar()
@@ -369,6 +375,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self._serial_context_.send(data, 0)
 #        MainWindow.__test__send(self, data)
         #self.__test__send(self, data)
+        
+        
 '''
 if __name__ == "__main__":
     import sys

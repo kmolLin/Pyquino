@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project Pyquino -->
-<!-- Saved: 2017-05-17, 19:19:19 -->
+<!-- Saved: 2017-07-14, 14:01:37 -->
 <!-- Copyright (C) 2017 you-sheng,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -14,6 +14,7 @@
   <Eol index="0"/>
   <Sources>
     <Source>core/Ui_mainwindow.py</Source>
+    <Source>core/Ui_mainwindow2.py</Source>
     <Source>core/__init__.py</Source>
     <Source>core/gcode/gcodeParser.py</Source>
     <Source>core/graphy/Ui_graphy.py</Source>
@@ -39,11 +40,14 @@
     <Source>pnael.py</Source>
     <Source>test.py</Source>
     <Source>test1.py</Source>
+    <Source>testCode/opencvTest.py</Source>
+    <Source>testCode/test.py</Source>
   </Sources>
   <Forms>
     <Form>core/gcode/mainwindow.ui</Form>
     <Form>core/graphy/graphy.ui</Form>
     <Form>core/mainwindow.ui</Form>
+    <Form>core/mainwindow2.ui</Form>
     <Form>core/monitor/machine_mointor.ui</Form>
     <Form>core/monitor/mainwindow.ui</Form>
     <Form>core/vrep/vrep_setting.ui</Form>

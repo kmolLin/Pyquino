@@ -111,7 +111,6 @@ class SerialPortContext(QtCore.QObject,object):
         self._received_thread_.setDaemon(True)
         #print("thread2")
         self._received_thread_.setName("SerialPortRecvThread")
-        
         self._received_thread_.start()
         
          

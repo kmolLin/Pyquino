@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/kmol/桌面/Pyquino/core/mainwindow.ui'
+# Form implementation generated from reading ui file 'C:\Users\Lin\Desktop\Pyquino\core\mainwindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.7.1
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -429,16 +429,40 @@ class Ui_MainWindow(object):
         self.textEditReceived2.setOverwriteMode(True)
         self.textEditReceived2.setObjectName("textEditReceived2")
         self.tabWidget.addTab(self.tab_2, "")
+        self.tab_3 = QtWidgets.QWidget()
+        self.tab_3.setObjectName("tab_3")
+        self.horizontalLayoutWidget = QtWidgets.QWidget(self.tab_3)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(50, 10, 631, 361))
+        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+        self.graphyViewModule = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.graphyViewModule.setContentsMargins(0, 0, 0, 0)
+        self.graphyViewModule.setObjectName("graphyViewModule")
+        self.pushButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.pushButton.setObjectName("pushButton")
+        self.graphyViewModule.addWidget(self.pushButton)
+        self.treeWidget = QtWidgets.QWidget(self.horizontalLayoutWidget)
+        self.treeWidget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.treeWidget.setObjectName("treeWidget")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.treeWidget)
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.tree = QtWidgets.QTreeWidget(self.treeWidget)
+        self.tree.setObjectName("tree")
+        self.verticalLayout_2.addWidget(self.tree)
+        self.graphyViewModule.addWidget(self.treeWidget)
+        self.tabWidget.addTab(self.tab_3, "")
         self.verticalLayout.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralWidget)
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 859, 23))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 859, 21))
         self.menuBar.setObjectName("menuBar")
         self.menuFile = QtWidgets.QMenu(self.menuBar)
         self.menuFile.setObjectName("menuFile")
+        self.menuchange = QtWidgets.QMenu(self.menuFile)
+        self.menuchange.setObjectName("menuchange")
         self.menuMointor = QtWidgets.QMenu(self.menuBar)
         self.menuMointor.setObjectName("menuMointor")
         self.menuHelp = QtWidgets.QMenu(self.menuBar)
@@ -456,8 +480,15 @@ class Ui_MainWindow(object):
         self.actionControl.setObjectName("actionControl")
         self.actionPyquino_help = QtWidgets.QAction(MainWindow)
         self.actionPyquino_help.setObjectName("actionPyquino_help")
+        self.actionbasic = QtWidgets.QAction(MainWindow)
+        self.actionbasic.setObjectName("actionbasic")
+        self.actionmachine_human = QtWidgets.QAction(MainWindow)
+        self.actionmachine_human.setObjectName("actionmachine_human")
+        self.menuchange.addAction(self.actionbasic)
+        self.menuchange.addAction(self.actionmachine_human)
         self.menuFile.addAction(self.actionSend)
         self.menuFile.addAction(self.actionExit)
+        self.menuFile.addAction(self.menuchange.menuAction())
         self.menuMointor.addAction(self.actionVrep)
         self.menuMointor.addAction(self.actionOpenGL)
         self.menuMointor.addAction(self.actionControl)
@@ -467,7 +498,7 @@ class Ui_MainWindow(object):
         self.menuBar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -484,8 +515,8 @@ class Ui_MainWindow(object):
         self.textEditSent.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'PMingLiU\';\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'PMingLiU\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Com"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Axis Adjust"))
         self.label_6.setText(_translate("MainWindow", "Z jog"))
@@ -498,7 +529,12 @@ class Ui_MainWindow(object):
         self.label_9.setText(_translate("MainWindow", "Y"))
         self.label_10.setText(_translate("MainWindow", "Z"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Control"))
+        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+        self.tree.headerItem().setText(0, _translate("MainWindow", "1"))
+        self.tree.headerItem().setText(1, _translate("MainWindow", "123"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "custom"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.menuchange.setTitle(_translate("MainWindow", "change"))
         self.menuMointor.setTitle(_translate("MainWindow", "Mointor"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.actionSend.setText(_translate("MainWindow", "send Gcode"))
@@ -507,6 +543,8 @@ class Ui_MainWindow(object):
         self.actionOpenGL.setText(_translate("MainWindow", "OpenGL"))
         self.actionControl.setText(_translate("MainWindow", "Control"))
         self.actionPyquino_help.setText(_translate("MainWindow", "Pyquino help"))
+        self.actionbasic.setText(_translate("MainWindow", "basic"))
+        self.actionmachine_human.setText(_translate("MainWindow", "machine human"))
 
 import icons_rc
 
