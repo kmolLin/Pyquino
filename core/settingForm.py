@@ -38,13 +38,18 @@ class SettingForm(QDialog, Ui_Dialog):
         
     def checkForm(self):
         if self.textEdit.toPlainText():
-            self.getlist = {
+            if self.compemontName.text():
+                self.getlist = {
                 "signal":self.textEdit.toPlainText(),
-                "component":self.comboBoxtype.currentIndex(),
+                "component":self.comboBoxtype.currentText(),
                 "Max":self.spinBoxMax.value(),
-                "Mini":self.spinBoxMin.value()
+                "Mini":self.spinBoxMin.value(), 
+                "Name":self.compemontName.text()
             }
-            self.accept()
+                self.accept()
+            else:
+                dlg = QMessageBox(QMessageBox.Warning, "Waring", "Name have no input", (QMessageBox.Ok), self)
+                dlg.exec()
         else:
             dlg = QMessageBox(QMessageBox.Warning, "Waring", "Signal have no input", (QMessageBox.Ok), self)
             dlg.exec()

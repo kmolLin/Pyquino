@@ -117,14 +117,47 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             dlg = SettingForm()
             dlg.show()
             if dlg.exec_():
-                self.a = dlg.getlist
+                self.formfile = dlg.getlist
                 self.reflesh()
-                print(self.a)
+                print(self.formfile)
         elif action ==self.action_treeWidget_del:
-            pass
-            
+            try :
+                self.tree.takeTopLevelItem(self.treeitemSelct[1])
+            except:
+                print("No select")
+        elif action == self.action_treeWidget_send:
+            try :
+                ## 0807 not yet to do
+                data = 'asa'
+                if self._serial_context_.isRunning():
+                    if len(data) > 0: self._serial_context_.send(data, 0)
+                    print(self.tree.currentItem().takeChildren())
+            except:
+                pass
+                
+                
     def reflesh(self):
-        tree = self.a
+        if self.formfile['component'] == "Motor":
+            root = QTreeWidgetItem([self.formfile['Name'], self.formfile['component']])
+            root.setFlags((root.flags() | Qt.ItemIsEditable))
+            root.addChild(QTreeWidgetItem(["Max", str(self.formfile['Mini']) ]))
+            root.addChild(QTreeWidgetItem(["Min", str(self.formfile['Max'])]))
+            root.addChild(QTreeWidgetItem(["signal", self.formfile['signal']]))
+            
+            self.tree.addTopLevelItem(root)
+        elif self.formfile['component'] == "Sensor":
+            root = QTreeWidgetItem([self.formfile['Name'], self.formfile['component']])
+            root.setFlags((root.flags() | Qt.ItemIsEditable))
+            root.addChild(QTreeWidgetItem(["signal", self.formfile['signal']]))
+            
+            self.tree.addTopLevelItem(root)
+        elif self.formfile['component'] == "Light":
+            root = QTreeWidgetItem([self.formfile['Name'], self.formfile['component']])
+            root.setFlags((root.flags() | Qt.ItemIsEditable))
+            root.addChild(QTreeWidgetItem(["signal", self.formfile['signal']]))
+            self.tree.addTopLevelItem(root)
+        
+        
         
     
     def __teset__(self):
@@ -376,13 +409,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 #        MainWindow.__test__send(self, data)
         #self.__test__send(self, data)
         
-        
-'''
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    run = MainWindow()
-    run.show()
-    sys.exit(app.exec_())
 
-'''
+    
+    @pyqtSlot(QTreeWidgetItem, QTreeWidgetItem)
+    def on_tree_currentItemChanged(self, current, previous):
+        """
+        Slot documentation goes here.
+        
+        @param current DESCRIPTION
+        @type QTreeWidgetItem
+        @param previous DESCRIPTION
+        @type QTreeWidgetItem
+        """
+        # TODO: not implemented yet
+        #print(current.text(0))
+
+    
+    @pyqtSlot(QTreeWidgetItem, int)
+    def on_tree_itemChanged(self, item, column):
+        if column==0:
+            finder = lambda x: self.tree.findItems(x, (Qt.MatchFixedString), 1)
+            checkName = finder('Sensor')
+            checkName += finder('Motor')
+            checkName += finder('Light')
+            names = [item.text(0) for item in checkName]
+            del names[names.index(item.text(0))]
+            print(names)
+            print(item.text(0) in names)
+    
+    @pyqtSlot(QTreeWidgetItem, int)
+    def on_tree_itemClicked(self, item, column):
+        self.treeitemSelct = [item, column]
+        print(column)
+

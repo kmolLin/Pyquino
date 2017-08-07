@@ -10,5 +10,9 @@ def rightClick(self):
     self.action_treeWidget_add =  QAction("Add", self)
     self.popMenu_treeWidget.addAction(self.action_treeWidget_add)
     self.popMenu_treeWidget.addSeparator()
+    self.action_treeWidget_send =  QAction("Send", self)
+    self.popMenu_treeWidget.addAction(self.action_treeWidget_send)
+    self.popMenu_treeWidget.addSeparator()
     self.action_treeWidget_del =  QAction("Delete", self)
     self.popMenu_treeWidget.addAction(self.action_treeWidget_del)
+    

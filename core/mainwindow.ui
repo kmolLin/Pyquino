@@ -1279,14 +1279,17 @@ p, li { white-space: pre-wrap; }
             </property>
             <item>
              <widget class="QTreeWidget" name="tree">
+              <attribute name="headerShowSortIndicator" stdset="0">
+               <bool>true</bool>
+              </attribute>
               <column>
                <property name="text">
-                <string>1</string>
+                <string>Name</string>
                </property>
               </column>
               <column>
                <property name="text">
-                <string>123</string>
+                <string>compoment</string>
                </property>
               </column>
              </widget>
