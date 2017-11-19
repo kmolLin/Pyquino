@@ -32,18 +32,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         rightClick(self)
-        '''
-        pal = QPalette()
-        pal.setColor(QPalette.Background, QColor(125,125 ,125))
-        
-        self.setAutoFillBackground(True)
-        self.setPalette(pal)
-        '''
-        print(args)
         self.initForms()
-
-        #self.comboBoxBaud.setCurrentIndex(len(bauds) - 1)        
-        
         
     def initForms(self):
         
@@ -54,40 +43,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.comboBoxPort.addItems(ports)
             print(ports)
         else:
-            #todo:scan system serial port
             self.__scanSerialPorts__()
-        
+        # setting bauds and get serial port
         bauds = ["50","75","134","110","150","200","300","600","1200","2400","4800","9600","14400","19200","38400","56000","57600",
             "115200"]
         self.comboBoxBaud.addItems(bauds)
         self.comboBoxBaud.setCurrentIndex(len(bauds) - 1)
-        
+        # setting Checkbox 
         checks = ["None","Odd","Even","Zero","One"]
         self.comboBoxCheckSum.addItems(checks)
         self.comboBoxCheckSum.setCurrentIndex(len(checks) - 1)
-        
+        # setting start Bit of the hex
         bits = ["4 Bits", "5 Bits","6 Bits", "7 Bits", "8 Bits"]
         self.comboBoxBits.addItems(bits)
         self.comboBoxBits.setCurrentIndex(len(bits) - 1)
-        
+        #setting stop bit of the box
         stopbits = ["1 Bit","1.5 Bits","2 Bits"];
         self.comboBoxStopBits.addItems(stopbits)
         self.comboBoxStopBits.setCurrentIndex(0)
-        
-        
-        #self._auto_send_signal.connect(self.__auto_send_update__)
-        
+        # get the comboBox get number
         port = self.comboBoxPort.currentText()
         baud = int("%s" % self.comboBoxBaud.currentText(), 10)
         self._serial_context_ = serialportcontext.SerialPortContext(port = port,baud = baud)
         
-#        self.lineEditReceivedCounts.setText("0")
-#        self.lineEditSentCounts.setText("0")
         self.pushButtonOpenSerial.clicked.connect(self.__open_serial_port__)
-       # self.pushButtonClearRecvArea.clicked.connect(self.__clear_recv_area__)
         self.pushButtonSendData.clicked.connect(self.__send_data__)
         self._receive_signal.connect(self.__display_recv_data__)
-       # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
         self.actionSend.triggered.connect(self.__open_send_file__)
         self.actionOpenGL.triggered.connect(self.__opengl__)
         self.actionVrep.triggered.connect(self.__teset__)
@@ -95,7 +76,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.numberx = 0
         self.numbery = 0
         self.numberz = 0
-        #self.__control__()
         self.actionControl.triggered.connect(self.__control__)
         
         ##machine_control button setting
@@ -107,9 +87,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.zupButton.clicked.connect(self.__zupButton__)
         self.zdownButton.clicked.connect(self.__zdownButton__)
         self.graphyViewModule.insertWidget(1, graphy())
-        # def __auto_send_update__(self):
-        #    self.lineEditSentCounts.setText("%d" % self._serial_context_.getSendCounts())
    
+    #TODO: context menu not yet
     @pyqtSlot(QPoint)
     def on_treeWidget_context_menu(self, point):
         action = self.popMenu_treeWidget.exec_(self.treeWidget.mapToGlobal(point))
@@ -126,14 +105,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             except:
                 print("No select")
         elif action == self.action_treeWidget_send:
-            try :
-                ## 0807 not yet to do
-                data = 'asa'
-                if self._serial_context_.isRunning():
-                    if len(data) > 0: self._serial_context_.send(data, 0)
-                    print(self.tree.currentItem().takeChildren())
-            except:
-                pass
+            self.graphyViewModule()
                 
                 
     def reflesh(self):
@@ -177,7 +149,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print("control open")
         dlg = Machine()
         dlg.show()
-        if dlg.exec_(): pass
+        dlg.exec_()
     
     def __open_send_file__(self):
         filename = QFileDialog.getOpenFileName(self, caption="Open Send File")
@@ -326,7 +298,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.pushButtonOpenSerial.setText(u'close')
             except Exception as e:
                 print("error")
-                #QtGui.QMessageBox.critical(self,u"打开端口",u"打开端口失败,请检查!")
+                #QtGui.QMessageBox.critical(self,u"Open port",u"please check the port!")
     
     def __clear_recv_area__(self): self.textEditReceived.clear()
     def __clear_send_area__(self): self.textEditSent.clear()
@@ -409,20 +381,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 #        MainWindow.__test__send(self, data)
         #self.__test__send(self, data)
         
-
-    
-    @pyqtSlot(QTreeWidgetItem, QTreeWidgetItem)
-    def on_tree_currentItemChanged(self, current, previous):
-        """
-        Slot documentation goes here.
-        
-        @param current DESCRIPTION
-        @type QTreeWidgetItem
-        @param previous DESCRIPTION
-        @type QTreeWidgetItem
-        """
-        # TODO: not implemented yet
-        #print(current.text(0))
 
     
     @pyqtSlot(QTreeWidgetItem, int)

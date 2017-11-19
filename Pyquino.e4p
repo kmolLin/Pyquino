@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project Pyquino -->
-<!-- Saved: 2017-07-14, 14:01:37 -->
+<!-- Saved: 2017-08-11, 12:13:43 -->
 <!-- Copyright (C) 2017 you-sheng,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -13,14 +13,15 @@
   <Email></Email>
   <Eol index="0"/>
   <Sources>
+    <Source>core/GraphyViewModule.py</Source>
+    <Source>core/RightClick.py</Source>
     <Source>core/Ui_mainwindow.py</Source>
-    <Source>core/Ui_mainwindow2.py</Source>
+    <Source>core/Ui_settingForm.py</Source>
     <Source>core/__init__.py</Source>
     <Source>core/gcode/gcodeParser.py</Source>
     <Source>core/graphy/Ui_graphy.py</Source>
     <Source>core/graphy/__init__.py</Source>
     <Source>core/graphy/graphy.py</Source>
-    <Source>core/graphy_test.py</Source>
     <Source>core/info.py</Source>
     <Source>core/mainwindow.py</Source>
     <Source>core/monitor/Ui_machine_mointor.py</Source>
@@ -28,6 +29,7 @@
     <Source>core/monitor/machine_mointor.py</Source>
     <Source>core/serialportcontext.py</Source>
     <Source>core/serialportedittext.py</Source>
+    <Source>core/settingForm.py</Source>
     <Source>core/vrep/Ui_vrep_setting.py</Source>
     <Source>core/vrep/vrep_setting.py</Source>
     <Source>core/vrep/vrep_test.py</Source>
@@ -44,10 +46,10 @@
     <Source>testCode/test.py</Source>
   </Sources>
   <Forms>
+    <Form>core/settingForm.ui</Form>
     <Form>core/gcode/mainwindow.ui</Form>
     <Form>core/graphy/graphy.ui</Form>
     <Form>core/mainwindow.ui</Form>
-    <Form>core/mainwindow2.ui</Form>
     <Form>core/monitor/machine_mointor.ui</Form>
     <Form>core/monitor/mainwindow.ui</Form>
     <Form>core/vrep/vrep_setting.ui</Form>

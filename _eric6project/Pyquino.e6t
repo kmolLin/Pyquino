@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
 <!-- eric6 tasks file for project Pyquino -->
-<!-- Saved: 2017-08-07, 20:28:58 -->
+<!-- Saved: 2017-11-19, 13:38:53 -->
 <Tasks version="6.0">
   <ProjectScanFilter></ProjectScanFilter>
-  <Task priority="1" completed="False" type="1" uid="{2672eadf-84b3-48c4-ac30-d495eb0b856a}">
-    <Summary>TODO: not implemented yet</Summary>
+  <Task priority="1" completed="False" type="1" uid="{ffbfc3fe-6425-4797-be6e-85fc94452adc}">
+    <Summary>TODO: context menu not yet</Summary>
     <Description></Description>
-    <Created>2017-08-07, 20:28:55</Created>
+    <Created>2017-11-19, 13:38:50</Created>
     <Resource>
       <Filename>core/mainwindow.py</Filename>
-      <Linenumber>424</Linenumber>
+      <Linenumber>91</Linenumber>
     </Resource>
   </Task>
 </Tasks>
