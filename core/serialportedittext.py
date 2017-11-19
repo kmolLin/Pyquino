@@ -11,7 +11,7 @@ class SerialPortInput(QtWidgets.QTextEdit):
             #event.setText("%2dX " % (ord(str(event.text()))))
             hex_data = "%02X " % (ord(str(event.text())))
             qhex_data = QtCore.QString("%s" % hex_data)
-            #print('hex_data = %s' % hex_data)
+
             new_event = QtWidgets.QKeyEvent(event.type(),event.key(),event.modifiers(),
                                        qhex_data,
                                         event.isAutoRepeat(),event.count())

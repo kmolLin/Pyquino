@@ -1,5 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+_eric6project/
+.eric6project/
 *.py[cod]
 *$py.class
 

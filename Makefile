@@ -1,11 +1,10 @@
 #Pyquino Makefile
 
-all: build run
+all: build
 
 build: launchPyquino.py
-	pyinstaller -F $< -i ./icons/usb.ico \
---path="C:\Users\Lin\AppData\Local\Programs\Python\Python35\Lib\site-packages\PyQt5\Qt\bin" \
---add-binary="core/vrep_remoAPI/remoteApi.dll;."
+	$(eval PYQTPATH = $(shell python -c "import PyQt5, os, sys;sys.stdout.write(os.path.dirname(PyQt5.__file__))"))
+	pyinstaller -F $< -i ./icons/usb.ico --path="$(PYQTPATH)\Qt\bin"
 
 run: build dist\launchPyquino.exe
 	dist\launchPyquino.exe
