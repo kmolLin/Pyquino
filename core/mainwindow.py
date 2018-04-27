@@ -5,7 +5,6 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import platform
-from . import serialportcontext
 import threading
 import time
 import serial

@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QDialog
 from .Ui_machine_mointor import Ui_Dialog
 from PyQt5 import QtCore, QtGui, QtWidgets
 #from mainwindow import MainWindow
-from .. import serialportcontext
+from ..serial import serialportcontext
 
 
 class Machine(QDialog, Ui_Dialog):
