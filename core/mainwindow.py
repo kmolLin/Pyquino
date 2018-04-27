@@ -1,16 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5 import QtWidgets , QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-import platform
-import threading
-import time
-import serial
 
 from .Ui_mainwindow import Ui_MainWindow
-#from .Ui_mainwindow2 import Ui_MainWindow2
 from .monitor.machine_mointor import Machine
 from .serial.serialport import Serialport
 from .RightClick import rightClick
@@ -18,26 +12,14 @@ from .settingForm import SettingForm
 from .widgets.simulation import CanvasPaint
 from .vrep.vrep_setting import vrepsetting
 
-
-
 class MainWindow(QMainWindow, Ui_MainWindow):
 
-    _receive_signal = QtCore.pyqtSignal(str)
-    _auto_send_signal = QtCore.pyqtSignal()
     def __init__(self, args, parent=None):
         
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.main_splitter.setSizes([200, 200])
         rightClick(self)
-        '''
-        pal = QPalette()
-        pal.setColor(QPalette.Background, QColor(125,125 ,125))
-        
-        self.setAutoFillBackground(True)
-        self.setPalette(pal)
-        '''
-        #self.initForms()
         self.actionserial.triggered.connect(self.__serialport__)
         self.actionVrep.triggered.connect(self.__teset__)
         self.actionControl.triggered.connect(self.__control__)

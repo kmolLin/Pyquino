@@ -30,20 +30,6 @@
       <widget class="QWidget" name="layoutWidget">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QPushButton" name="sim_start">
-          <property name="text">
-           <string>start</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="sim_stop">
-          <property name="text">
-           <string>stop</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QWidget" name="treeWidget" native="true">
           <property name="contextMenuPolicy">
            <enum>Qt::CustomContextMenu</enum>
@@ -62,18 +48,45 @@
             <number>0</number>
            </property>
            <item>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="0">
+              <widget class="QPushButton" name="sim_start">
+               <property name="text">
+                <string>start</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="sim_stop">
+               <property name="text">
+                <string>stop</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="sim_pause">
+               <property name="text">
+                <string>pause</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="sim_reset">
+               <property name="text">
+                <string>reset</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QTreeWidget" name="tree">
              <attribute name="headerShowSortIndicator" stdset="0">
               <bool>true</bool>
              </attribute>
              <column>
               <property name="text">
-               <string>Name</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>compoment</string>
+               <string>Scene hierarchy</string>
               </property>
              </column>
             </widget>

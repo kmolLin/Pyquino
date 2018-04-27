@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project Pyquino -->
-<!-- Saved: 2018-04-27, 17:36:17 -->
+<!-- Saved: 2018-04-28, 00:21:27 -->
 <!-- Copyright (C) 2018 you-sheng,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -13,8 +13,10 @@
   <Email></Email>
   <Eol index="0"/>
   <Sources>
+    <Source>core/RightClick.py</Source>
     <Source>core/Ui_mainwindow.py</Source>
     <Source>core/__init__.py</Source>
+    <Source>core/gcode/Ui_mainwindow.py</Source>
     <Source>core/gcode/gcodeParser.py</Source>
     <Source>core/graphy/Ui_graphy.py</Source>
     <Source>core/graphy/__init__.py</Source>
@@ -22,23 +24,23 @@
     <Source>core/info.py</Source>
     <Source>core/mainwindow.py</Source>
     <Source>core/monitor/Ui_machine_mointor.py</Source>
+    <Source>core/monitor/Ui_mainwindow.py</Source>
     <Source>core/monitor/__init__.py</Source>
     <Source>core/monitor/machine_mointor.py</Source>
-    <Source>core/serialportcontext.py</Source>
-    <Source>core/serialportedittext.py</Source>
+    <Source>core/serial/serialport.py</Source>
+    <Source>core/settingForm.py</Source>
     <Source>core/vrep/Ui_vrep_setting.py</Source>
     <Source>core/vrep/vrep_setting.py</Source>
     <Source>core/vrep/vrep_test.py</Source>
     <Source>core/vrep_remoAPI/one_link_robot_remoteAPI_joint_position.py</Source>
     <Source>core/vrep_remoAPI/vrep.py</Source>
     <Source>core/vrep_remoAPI/vrepConst.py</Source>
+    <Source>core/widgets/Ui_serialUI.py</Source>
+    <Source>core/widgets/Ui_serialUI.py</Source>
+    <Source>core/widgets/basichart.py</Source>
     <Source>core/widgets/simulation.py</Source>
     <Source>icons_rc.py</Source>
     <Source>launchPyquino.py</Source>
-    <Source>opgl_class.py</Source>
-    <Source>pendulum.py</Source>
-    <Source>pnael.py</Source>
-    <Source>render_movie.py</Source>
     <Source>test.py</Source>
     <Source>test1.py</Source>
     <Source>testCode/opencvTest.py</Source>
@@ -51,6 +53,7 @@
     <Form>core/monitor/machine_mointor.ui</Form>
     <Form>core/monitor/mainwindow.ui</Form>
     <Form>core/vrep/vrep_setting.ui</Form>
+    <Form>core/widgets/serialUI.ui</Form>
   </Forms>
   <Resources>
     <Resource>icons.qrc</Resource>
