@@ -4,7 +4,6 @@ from PyQt5.QtOpenGL import QGLWidget
 # PyOpenGL imports
 import OpenGL.GL as gl
 import OpenGL.arrays.vbo as glvbo
-from pyqtgraph.opengl import GLScatterPlotItem
 
 class GLPlotWidget(QGLWidget):
     # default window size

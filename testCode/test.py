@@ -5,7 +5,7 @@ from PyQt5.QtCore import pyqtSignal, QPoint, QSize, Qt
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import (QApplication, QHBoxLayout, QOpenGLWidget, QSlider,
                              QWidget)
-
+from OpenGL import GL, GLU, GLUT
 import OpenGL.GL as gl
 
 
@@ -59,11 +59,15 @@ class GLWidget(QOpenGLWidget):
 
     def __init__(self, parent=None):
         super(GLWidget, self).__init__(parent)
+        
 
         self.object = 0
         self.xRot = 0
         self.yRot = 0
         self.zRot = 0
+        self.pitch = 30.0
+        self.yaw = 0.0
+        self.distance =7.0
 
         self.lastPos = QPoint()
 
@@ -119,9 +123,14 @@ class GLWidget(QOpenGLWidget):
         self.object = self.makeObject()
         gl.glShadeModel(gl.GL_FLAT)
         gl.glEnable(gl.GL_DEPTH_TEST)
-        gl.glEnable(gl.GL_CULL_FACE)
+        gl.glClearDepth(1.0)
+        #gl.glEnable(gl.GL_CULL_FACE)
+        gl.glEnable(gl.GL_BLEND)
+        gl.glBlendFunc(gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA)
+        
 
     def paintGL(self):
+        
         gl.glClear(
             gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
         gl.glLoadIdentity()
@@ -130,6 +139,61 @@ class GLWidget(QOpenGLWidget):
         gl.glRotated(self.yRot / 16.0, 0.0, 1.0, 0.0)
         gl.glRotated(self.zRot / 16.0, 0.0, 0.0, 1.0)
         gl.glCallList(self.object)
+        '''
+        gl.glClear(
+            gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
+        self.setView()
+        self.setLight()
+        gl.glEnable(gl.GL_COLOR_MATERIAL)
+        gl.glDisable(gl.GL_LIGHTING)
+        gl.glColor4f(0.0, 0.5, 0.0, 0.5)
+        for i in range(0, 21):
+            gl.glBegin(gl.GL_LINES)
+            gl.glVertex3f(-5.0+0.5*i, -5.0, 0.0) 
+            gl.glVertex3f(-5.0+0.5*i, 5.0, 0.0)
+            gl.glVertex3f(-5.0, -5.0+0.5*i, 0.0)
+            gl.glVertex3f(5.0, -5.0+0.5*i, 0.0)
+            gl.glEnd()
+        gl.glColor4f(0.5, 0.5, 0.0, 0.5)
+        gl.glBegin(gl.GL_LINES)
+        '''
+
+    def setView(self):
+        gl.glMatrixMode(gl.GL_PROJECTION)
+        gl.glLoadIdentity()
+     #   gl.gluPerspective(60.0, 1.0*w/h, 0.1, 100.0)
+
+        gl.glMatrixMode(gl.GL_MODELVIEW)
+        gl.glLoadIdentity()
+
+        GLU.gluLookAt(-self.distance, 0.0, 0.0, 
+                  0.0, 0.0, 0.0,
+                  0.0, 0.0, 1.0)
+        gl.glRotatef(self.pitch, 0.0, -1.0, 0.0)
+        gl.glRotatef(self.yaw, 0.0, 0.0, -1.0)
+    def setLight(self):
+        lamb = [ 0.1, 0.1, 0.1, 1.0 ]
+        ldif = [1.0, 1.0, 1.0, 1.0]
+        lpos = [-10.0, -10.0, 10.0, 1.0]
+        gl.glEnable(gl.GL_COLOR_MATERIAL)
+        gl.glDisable(gl.GL_LIGHTING)
+        gl.glDisable(gl.GL_LIGHT0)
+        gl.glColor4fv(ldif)
+        gl.glBegin(gl.GL_POINTS)
+        gl.glVertex4fv(lpos)
+        gl.glEnd()
+        gl.glDisable(gl.GL_COLOR_MATERIAL)
+        gl.glEnable(gl.GL_LIGHTING)
+        gl.glEnable(gl.GL_LIGHT0)
+        gl.glLightfv(gl.GL_LIGHT0, gl.GL_POSITION, lpos)
+        gl.glLightfv(gl.GL_LIGHT0, gl.GL_AMBIENT, lamb)
+        gl.glLightfv(gl.GL_LIGHT0, gl.GL_DIFFUSE, ldif)
+        
+        
+        
+        
+        
+        
 
     def resizeGL(self, width, height):
         side = min(width, height)

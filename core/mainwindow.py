@@ -13,12 +13,12 @@ import serial
 from .Ui_mainwindow import Ui_MainWindow
 #from .Ui_mainwindow2 import Ui_MainWindow2
 from .monitor.machine_mointor import Machine
-from .graphy.graphy import Dialog
+from .serial.serialport import Serialport
 from .GraphyViewModule import graphy
 from .RightClick import rightClick
 import pnael 
 from .settingForm import SettingForm
-
+from .widgets.simulation import CanvasPaint
 from .vrep.vrep_setting import vrepsetting
 
 
@@ -31,6 +31,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+        self.main_splitter.setSizes([200, 200])
         rightClick(self)
         '''
         pal = QPalette()
@@ -39,11 +40,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setAutoFillBackground(True)
         self.setPalette(pal)
         '''
-        print(args)
         self.initForms()
-
-        #self.comboBoxBaud.setCurrentIndex(len(bauds) - 1)        
+        self.mainCanvas = CanvasPaint(self)
+        self.painter_layout.addWidget(self.mainCanvas)
+        self.sim_start.clicked.connect(lambda:self.mainCanvas.setTimer(True))
+        self.sim_stop.clicked.connect(lambda:self.mainCanvas.setTimer(False))
+        self.treecontextMenu = QMenu(self)
+        self.treecontextMenuadd = QMenu("add", self)
+        self.aaaction = QAction("add", self)
+        self.treecontextMenu.addAction(self.aaaction)
+        self.treecontextMenu.addMenu(self.treecontextMenuadd)
+        self.canvasMenu = QMenu(self)
+        self.simtree.customContextMenuRequested.connect(self.simtreeMenu)
         
+        #self.comboBoxBaud.setCurrentIndex(len(bauds) - 1)
         
     def initForms(self):
         
@@ -89,7 +99,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._receive_signal.connect(self.__display_recv_data__)
        # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
         self.actionSend.triggered.connect(self.__open_send_file__)
-        self.actionOpenGL.triggered.connect(self.__opengl__)
+        self.actionserial.triggered.connect(self.__serialport__)
         self.actionVrep.triggered.connect(self.__teset__)
         self._send_file_data = ''
         self.numberx = 0
@@ -99,6 +109,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.actionControl.triggered.connect(self.__control__)
         
         ##machine_control button setting
+        """
         self.unlockMachine.clicked.connect(self.__unlockMachine__)
         self.yAxisup.clicked.connect(self.__yAxisup__)
         self.yAxisdown.clicked.connect(self.__yAxisdown__)
@@ -109,7 +120,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.graphyViewModule.insertWidget(1, graphy())
         # def __auto_send_update__(self):
         #    self.lineEditSentCounts.setText("%d" % self._serial_context_.getSendCounts())
-   
+        """
     @pyqtSlot(QPoint)
     def on_treeWidget_context_menu(self, point):
         action = self.popMenu_treeWidget.exec_(self.treeWidget.mapToGlobal(point))
@@ -156,22 +167,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             root.setFlags((root.flags() | Qt.ItemIsEditable))
             root.addChild(QTreeWidgetItem(["signal", self.formfile['signal']]))
             self.tree.addTopLevelItem(root)
-        
-        
-        
     
     def __teset__(self):
         dlg1 = vrepsetting()
         dlg1.show()
         if dlg1.exec_(): pass
-        #self.GLWidget = QOpenGLWidget()
         print("I'm test")
     
-    def __opengl__(self):
-        dlg2 = Dialog()
+    def __serialport__(self):
+        dlg2 = Serialport()
         dlg2.show()
         if dlg2.exec_(): pass
-            #a  = dlg2.a
     
     def __control__(self):
         print("control open")
@@ -360,20 +366,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self._serial_context_.isRunning():
             if len(data) > 0:
                 self._serial_context_.send(data, 0)
-                print(data)
-                #self.lineEditSentCounts.setText("%d" % self._serial_context_.getSendCounts())
-                #if self.checkBoxEmptyAfterSent.isChecked():
-                    #self.textEditSent.clear()
-            
-                #if self.checkBoxSendLooping.isChecked():
-                  #  self.pushButtonSendData.setEnabled(False)
-                    #delay = self.spinBox.value() * 100.0 / 1000.0
-                    #delay = 100.0 / 1000.0
-                   # self._auto_send_thread = threading.Thread(target=self.__auto_send__,args=(delay,))
-                    
-                   # self._is_auto_sending = True
-                   # self._auto_send_thread.setDaemon(True)
-                    #self._auto_send_thread.start()
     
     def __auto_send__(self,delay):
         while self._is_auto_sending:
@@ -390,6 +382,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self._serial_context_.send(data, 1)
                     #self._auto_send_signal.emit()
             time.sleep(delay)
+            
+    ### end
     
     @pyqtSlot()
     def on_homeButton_clicked(self):
@@ -441,4 +435,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def on_tree_itemClicked(self, item, column):
         self.treeitemSelct = [item, column]
         print(column)
-
+    
+    @pyqtSlot(QPoint)
+    def simtreeMenu(self, point):
+        action = self.treecontextMenu.exec_(self.simtree.mapToGlobal(point))
+        
+    

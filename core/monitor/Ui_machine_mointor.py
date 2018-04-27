@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Y:\eric6_workspace\PyQt5-pyserial\monitor/machine_mointor.ui'
+# Form implementation generated from reading ui file 'C:\Users\Lin\Desktop\Pyquino\core\monitor\machine_mointor.ui'
 #
-# Created by: PyQt5 UI code generator 5.7
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 

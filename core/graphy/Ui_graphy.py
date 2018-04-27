@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Lin\Desktop\Pyquino\core\graphy\graphy.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.2
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -19,6 +19,9 @@ class Ui_Dialog(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
+        self.openGLWidget = QtWidgets.QOpenGLWidget(self.verticalLayoutWidget)
+        self.openGLWidget.setObjectName("openGLWidget")
+        self.verticalLayout.addWidget(self.openGLWidget)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout = QtWidgets.QHBoxLayout()

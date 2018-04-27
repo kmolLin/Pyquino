@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
 <!-- eric6 tasks file for project Pyquino -->
-<!-- Saved: 2017-08-07, 20:28:58 -->
+<!-- Saved: 2018-04-27, 23:22:54 -->
 <Tasks version="6.0">
   <ProjectScanFilter></ProjectScanFilter>
-  <Task priority="1" completed="False" type="1" uid="{2672eadf-84b3-48c4-ac30-d495eb0b856a}">
+  <Task priority="1" completed="False" type="1" uid="{be883a86-75a3-4192-a842-590425d4766e}">
+    <Summary>TODO: add timer to get data to plot</Summary>
+    <Description></Description>
+    <Created>2018-04-27, 22:42:25</Created>
+    <Resource>
+      <Filename>core/widgets/basichart.py</Filename>
+      <Linenumber>33</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{2f359ca5-609c-4b12-b38b-5e5b71ee4be9}">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2017-08-07, 20:28:55</Created>
+    <Created>2018-04-27, 23:22:51</Created>
     <Resource>
       <Filename>core/mainwindow.py</Filename>
-      <Linenumber>424</Linenumber>
+      <Linenumber>418</Linenumber>
     </Resource>
   </Task>
 </Tasks>
