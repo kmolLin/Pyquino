@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
 <!-- eric6 tasks file for project Pyquino -->
-<!-- Saved: 2018-04-28, 00:21:27 -->
+<!-- Saved: 2018-04-28, 15:46:19 -->
 <Tasks version="6.0">
   <ProjectScanFilter></ProjectScanFilter>
-  <Task priority="1" completed="False" type="1" uid="{c46f5e7f-389a-43df-8aa5-91b8ea59cb01}">
+  <Task priority="1" completed="False" type="1" uid="{91491246-95f6-4c6c-bb34-b055bf2f90fc}">
     <Summary>TODO: add timer to get data to plot</Summary>
     <Description></Description>
-    <Created>2018-04-28, 00:11:50</Created>
+    <Created>2018-04-28, 14:30:29</Created>
     <Resource>
       <Filename>core/widgets/basichart.py</Filename>
       <Linenumber>33</Linenumber>
     </Resource>
   </Task>
-  <Task priority="1" completed="False" type="1" uid="{16678d72-0052-474c-ba87-c4e2d9858d55}">
+  <Task priority="1" completed="False" type="1" uid="{1b018816-20e8-4463-a37c-3ce6131e3aa6}">
+    <Summary>TODO:  在創造出來的畫布上加入右鍵選單</Summary>
+    <Description></Description>
+    <Created>2018-04-28, 15:46:16</Created>
+    <Resource>
+      <Filename>core/mainwindow.py</Filename>
+      <Linenumber>34</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{00434177-e1f6-4b03-af40-4cfefadba89c}">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2018-04-28, 00:21:08</Created>
+    <Created>2018-04-28, 15:46:16</Created>
     <Resource>
       <Filename>core/mainwindow.py</Filename>
       <Linenumber>112</Linenumber>

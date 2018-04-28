@@ -19,7 +19,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.main_splitter.setSizes([200, 200])
-        rightClick(self)
+        
         self.actionserial.triggered.connect(self.__serialport__)
         self.actionVrep.triggered.connect(self.__teset__)
         self.actionControl.triggered.connect(self.__control__)
@@ -28,16 +28,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.painter_layout.addWidget(self.mainCanvas)
         self.sim_start.clicked.connect(lambda:self.mainCanvas.setTimer(True))
         self.sim_stop.clicked.connect(lambda:self.mainCanvas.setTimer(False))
-        self.treecontextMenu = QMenu(self)
-        self.treecontextMenuadd = QMenu("add", self)
-        self.aaaction = QAction("add", self)
-        self.treecontextMenu.addAction(self.aaaction)
-        self.treecontextMenu.addMenu(self.treecontextMenuadd)
-        self.canvasMenu = QMenu(self)
-    
         
+        rightClick(self)
+    
+    # TODO:  在創造出來的畫布上加入右鍵選單
     @pyqtSlot(QPoint)
-    def on_treeWidget_context_menu(self, point):
+    def on_mainCanvas_customContextMenuRequested(self, point):
+        action = self.popMenu_treeWidget.exec_(self.mainCanvas.mapToGlobal(point))
+        
+    
+    @pyqtSlot(QPoint)
+    def on_treeWidget_customContextMenuRequested(self, point):
         action = self.popMenu_treeWidget.exec_(self.treeWidget.mapToGlobal(point))
         if action == self.action_treeWidget_add:
             dlg = SettingForm()
@@ -45,7 +46,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if dlg.exec_():
                 self.formfile = dlg.getlist
                 self.reflesh()
-                print(self.formfile)
         elif action ==self.action_treeWidget_del:
             try :
                 self.tree.takeTopLevelItem(self.treeitemSelct[1])

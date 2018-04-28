@@ -24,9 +24,13 @@ class CanvasPaint(QWidget):
     body2.setPosition((2,2,0))
 
     # Connect body1 with the static environment
-    j1 = ode.BallJoint(world)
+    j1 = ode.HingeJoint(world)
     j1.attach(body1, ode.environment)
     j1.setAnchor( (0,2,0) )
+    j1.setAxis( (0,0,1) )
+    j1.setParam(ode.ParamVel, 300)
+    j1.setParam(ode.ParamFMax, 22)
+    
 
     # Connect body2 with body1
     j2 = ode.BallJoint(world)
@@ -56,6 +60,7 @@ class CanvasPaint(QWidget):
         self.painter = QPainter()
         self.painter.begin(self)
         self.painter.fillRect(event.rect(), QBrush(Qt.white))
+        self.painter.drawText(self.width()/2, self.height()/2, "test")
         self.painter.translate(self.width()/2, self.height()/2)
         x1,y1,z1 = self.body1.getPosition()
         x2,y2,z2 = self.body2.getPosition()
@@ -65,3 +70,5 @@ class CanvasPaint(QWidget):
         self.painter.drawLine(QPointF(0, -2)*self.zoom, QPointF(x1, -y1)*self.zoom)
         self.painter.drawLine(QPointF(x1, -y1)*self.zoom, QPointF(x2, -y2)*self.zoom)
         self.painter.end()
+
+    

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project Pyquino -->
-<!-- Saved: 2018-04-28, 00:21:27 -->
+<!-- Saved: 2018-04-28, 13:33:38 -->
 <!-- Copyright (C) 2018 you-sheng,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -45,13 +45,17 @@
     <Source>test1.py</Source>
     <Source>testCode/opencvTest.py</Source>
     <Source>testCode/test.py</Source>
+    <Source>testCode/ttttt.py</Source>
   </Sources>
   <Forms>
+    <Form>core/widgets/bodySettingForm.ui</Form>
+    <Form>core/widgets/jointSettingForm.ui</Form>
     <Form>core/gcode/mainwindow.ui</Form>
     <Form>core/graphy/graphy.ui</Form>
     <Form>core/mainwindow.ui</Form>
     <Form>core/monitor/machine_mointor.ui</Form>
     <Form>core/monitor/mainwindow.ui</Form>
+    <Form>core/settingForm.ui</Form>
     <Form>core/vrep/vrep_setting.ui</Form>
     <Form>core/widgets/serialUI.ui</Form>
   </Forms>
