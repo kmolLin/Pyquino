@@ -28,8 +28,8 @@ class CanvasPaint(QWidget):
     j1.attach(body1, ode.environment)
     j1.setAnchor( (0,2,0) )
     j1.setAxis( (0,0,1) )
-    j1.setParam(ode.ParamVel, 300)
-    j1.setParam(ode.ParamFMax, 22)
+    j1.setParam(ode.ParamVel, 30)
+    #j1.setParam(ode.ParamFMax, 22)
     
 
     # Connect body2 with body1

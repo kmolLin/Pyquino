@@ -139,7 +139,6 @@
        <zorder>label_5</zorder>
        <zorder>comboBoxStopBits</zorder>
        <zorder>pushButtonOpenSerial</zorder>
-       <zorder>verticalLayoutWidget</zorder>
       </widget>
      </item>
     </layout>

@@ -22,7 +22,6 @@ class Serialport(QDialog, Ui_Dialog):
             for i in range(8):
                 ports.append("COM%d" %((i+1)))    
             self.comboBoxPort.addItems(ports)
-            print(ports)
         else:
             #todo:scan system serial port
             self.__scanSerialPorts__()
@@ -82,16 +81,12 @@ class Serialport(QDialog, Ui_Dialog):
         #   hexstr = "%02X " % ord(str(data[l]))
         #  self.textEditReceived.insertPlainText(hexstr)
         self.textEditReceived.insertPlainText(data)
-        print("gogog",len(data))
+        #print("gogog",len(data))
         for l in range(len(data)):
             #self.textEditReceived.insertPlainText(data[l])  
             sb = self.textEditReceived.verticalScrollBar()
             sb.setValue(sb.maximum())
             #print("test recive", data[l])
-        for c in range(len(data)):
-            self.textEditReceived2.insertPlainText(data[c])
-            sb = self.textEditReceived2.verticalScrollBar()
-            sb.setValue(sb.maximum())
         #if self.checkBoxNewLine.isChecked():
         #    self.textEditReceived.insertPlainText("\n")
         # self.lineEditReceivedCounts.setText("%d" % self._serial_context_.getRecvCounts())
@@ -108,24 +103,20 @@ class Serialport(QDialog, Ui_Dialog):
         if  self._serial_context_.isRunning():
             self._serial_context_.close()
             self.pushButtonOpenSerial.setText(u'open')
-            print("open")
         else:
             try:
                 #currentIndex() will get the number
                 portss = self.comboBoxPort.currentText()
                 port = self.comboBoxPort.currentText()
-                print("the", portss)
                 baud = int("%s" % self.comboBoxBaud.currentText(),10)
                 self._serial_context_ = serialportcontext.SerialPortContext(port = port,baud = baud)
                 #print(self._serial_context_ )
                 self._serial_context_ .recall()
                 self._serial_context_.registerReceivedCallback(self.__data_received__)
-                print("4")
                 self._serial_context_.open()
-                print("5")
                 self.pushButtonOpenSerial.setText(u'close')
             except Exception as e:
-                print("error")
+                pass
                 #QtGui.QMessageBox.critical(self,u"打开端口",u"打开端口失败,请检查!")
     
     def __clear_recv_area__(self): self.textEditReceived.clear()
@@ -136,27 +127,22 @@ class Serialport(QDialog, Ui_Dialog):
         if self._serial_context_.isRunning():
             self._serial_context_.close()
         # if self._recv_file_ != None:
-            print("123")
            # self._recv_file_.flush()
            # self._recv_file_.close()
     
     def __data_received__(self,data):
-        print('recv:%s' % data)
         self._receive_signal.emit(data)
         #if self._recv_file_ != None and self.checkBoxSaveAsFile.isChecked():
         #    self._recv_file_.write(data)
     
     def __test__send(self, data1):
-        print(data1)
         data = str(data1+'\n')
         if self._serial_context_.isRunning():
             if len(data) > 0:
                 self._serial_context_.send(data, 0)
-                print(data)
     
     def __send_data__(self):
         data = str(self.textEditSent.toPlainText()+'\n')
-        print("i m data", data)
         if self._serial_context_.isRunning():
             if len(data) > 0:
                 self._serial_context_.send(data, 0)
@@ -170,7 +156,6 @@ class Serialport(QDialog, Ui_Dialog):
                     #break
             #else:
             data = str(self.textEditSent.toPlainText())
-            print("123gogo", data)
             if self._serial_context_.isRunning():
                 if len(data) > 0:
                     self._serial_context_.send(data, 1)
