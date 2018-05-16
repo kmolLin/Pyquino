@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project Pyquino -->
-<!-- Saved: 2018-05-13, 14:59:25 -->
+<!-- Saved: 2018-05-16, 21:39:57 -->
 <!-- Copyright (C) 2018 you-sheng,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -43,12 +43,14 @@
     <Source>core/widgets/simulation.py</Source>
     <Source>icons_rc.py</Source>
     <Source>launchPyquino.py</Source>
+    <Source>rrr.py</Source>
     <Source>simu_test.py</Source>
     <Source>test.py</Source>
     <Source>test1.py</Source>
     <Source>testCode/opencvTest.py</Source>
     <Source>testCode/test.py</Source>
     <Source>testCode/ttttt.py</Source>
+    <Source>test_ode.py</Source>
   </Sources>
   <Forms>
     <Form>core/gcode/mainwindow.ui</Form>
