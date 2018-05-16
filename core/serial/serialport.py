@@ -8,8 +8,11 @@ import platform
 
 
 class Serialport(QDialog, Ui_Dialog):
+    
     _receive_signal = pyqtSignal(str)
     _auto_send_signal = pyqtSignal()
+    yield_signal = pyqtSignal(int)
+    
     def __init__(self, parent=None):
         super(Serialport, self).__init__(parent)
         self.setupUi(self)
@@ -77,19 +80,13 @@ class Serialport(QDialog, Ui_Dialog):
         self.textEditReceived.clear()    
     
     def __display_recv_data__(self,data):
-        #for l in range(len(data)):
-        #   hexstr = "%02X " % ord(str(data[l]))
-        #  self.textEditReceived.insertPlainText(hexstr)
         self.textEditReceived.insertPlainText(data)
-        #print("gogog",len(data))
-        for l in range(len(data)):
-            #self.textEditReceived.insertPlainText(data[l])  
-            sb = self.textEditReceived.verticalScrollBar()
-            sb.setValue(sb.maximum())
-            #print("test recive", data[l])
-        #if self.checkBoxNewLine.isChecked():
-        #    self.textEditReceived.insertPlainText("\n")
-        # self.lineEditReceivedCounts.setText("%d" % self._serial_context_.getRecvCounts())
+        try:
+            self.yield_signal.emit(int(data))
+        except ValueError:
+            pass
+        sb = self.textEditReceived.verticalScrollBar()
+        sb.setValue(sb.maximum())
     
     def __scanSerialPorts__(self):
         ports = []
@@ -111,27 +108,27 @@ class Serialport(QDialog, Ui_Dialog):
                 baud = int("%s" % self.comboBoxBaud.currentText(),10)
                 self._serial_context_ = serialportcontext.SerialPortContext(port = port,baud = baud)
                 #print(self._serial_context_ )
-                self._serial_context_ .recall()
-                self._serial_context_.registerReceivedCallback(self.__data_received__)
+                self._serial_context_.recall()
+                self._serial_context_._recvSignal_.connect(self._receive_signal.emit)
                 self._serial_context_.open()
                 self.pushButtonOpenSerial.setText(u'close')
             except Exception as e:
                 pass
-                #QtGui.QMessageBox.critical(self,u"打开端口",u"打开端口失败,请检查!")
     
-    def __clear_recv_area__(self): self.textEditReceived.clear()
-    def __clear_send_area__(self): self.textEditSent.clear()
+    def __clear_recv_area__(self):
+        self.textEditReceived.clear()
+    
+    def __clear_send_area__(self):
+        self.textEditSent.clear()
     
     def closeEvent(self, event):
         self._is_auto_sending = False
         if self._serial_context_.isRunning():
             self._serial_context_.close()
-        # if self._recv_file_ != None:
-           # self._recv_file_.flush()
-           # self._recv_file_.close()
     
     def __data_received__(self,data):
-        self._receive_signal.emit(data)
+        pass
+        #(data)
         #if self._recv_file_ != None and self.checkBoxSaveAsFile.isChecked():
         #    self._recv_file_.write(data)
     

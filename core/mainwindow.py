@@ -26,12 +26,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.mainCanvas = CanvasPaint(self)
         self.painter_layout.addWidget(self.mainCanvas)
-        self.sim_start.clicked.connect(lambda:self.mainCanvas.setTimer(True))
+        self.sim_start.clicked.connect(self.let)
         self.sim_stop.clicked.connect(lambda:self.mainCanvas.setTimer(False))
         
         rightClick(self)
     
-    # TODO:  在創造出來的畫布上加入右鍵選單
+    def let(self):
+        self.mainCanvas.setTimer(True, self.freemode.checkState())
+        self.mainCanvas.setMotor(10)
+        
+    
     @pyqtSlot(QPoint)
     def on_mainCanvas_customContextMenuRequested(self, point):
         action = self.popMenu_treeWidget.exec_(self.mainCanvas.mapToGlobal(point))
@@ -83,21 +87,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tree.addTopLevelItem(root)
     
     def __teset__(self):
-        dlg1 = vrepsetting()
-        dlg1.show()
-        if dlg1.exec_(): pass
-        print("I'm test")
+        dlg = vrepsetting()
+        dlg.show()
+        dlg.exec_()
     
     def __serialport__(self):
-        dlg2 = Serialport()
-        dlg2.show()
-        if dlg2.exec_(): pass
+        dlg = Serialport()
+        dlg.yield_signal.connect(self.mainCanvas.setMotor)
+        dlg.show()
+        dlg.exec_()
     
     def __control__(self):
         print("control open")
         dlg = Machine()
         dlg.show()
-        if dlg.exec_(): pass
+        dlg.exec_()
     
     @pyqtSlot(QTreeWidgetItem, QTreeWidgetItem)
     def on_tree_currentItemChanged(self, current, previous):

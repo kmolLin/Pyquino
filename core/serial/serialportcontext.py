@@ -146,6 +146,3 @@ class SerialPortContext(QtCore.QObject,object):
         
     def isRunning(self):
         return self._is_running_ and self._serial_port_.isOpen()
-         
-        
-        

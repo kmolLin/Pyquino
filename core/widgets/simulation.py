@@ -4,6 +4,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import ode
+import math
 
 
 class CanvasPaint(QWidget):
@@ -28,15 +29,16 @@ class CanvasPaint(QWidget):
     j1.attach(body1, ode.environment)
     j1.setAnchor( (0,2,0) )
     j1.setAxis( (0,0,1) )
-    j1.setParam(ode.ParamVel, 30)
-    #j1.setParam(ode.ParamFMax, 22)
+    j1.setParam(ode.ParamFMax, 22)
+    j1.setParam(ode.ParamVel, 0)
     
-
+    
     # Connect body2 with body1
+
     j2 = ode.BallJoint(world)
     j2.attach(body1, body2)
     j2.setAnchor( (1,2,0) )
-    
+
     fps = 50
     dt = 0.01
     
@@ -50,19 +52,24 @@ class CanvasPaint(QWidget):
         self.timer.timeout.connect(self.update)
         self.timer.timeout.connect(lambda: self.world.step(self.dt)) #sec
     
-    def setTimer(self, flag):
+    def setTimer(self, flag, checkmode):
         if flag:
             self.timer.start(self.dt*1000) # msec
         else:
             self.timer.stop()
     
+    @pyqtSlot(int)
+    def setMotor(self, vel: int):
+        self.j1.setParam(ode.ParamVel, vel)
+    
     def paintEvent(self, event):
         self.painter = QPainter()
         self.painter.begin(self)
         self.painter.fillRect(event.rect(), QBrush(Qt.white))
-        self.painter.drawText(self.width()/2, self.height()/2, "test")
         self.painter.translate(self.width()/2, self.height()/2)
         x1,y1,z1 = self.body1.getPosition()
+        angle = self.j1.getAngle()
+        self.painter.drawText(self.width()/2, self.height()/2, str(math.degrees(angle)))
         x2,y2,z2 = self.body2.getPosition()
         pen = QPen(Qt.black)
         pen.setWidth(3)

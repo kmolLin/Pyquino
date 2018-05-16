@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project Pyquino -->
-<!-- Saved: 2018-04-28, 13:33:38 -->
+<!-- Saved: 2018-05-13, 14:59:25 -->
 <!-- Copyright (C) 2018 you-sheng,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -28,6 +28,8 @@
     <Source>core/monitor/__init__.py</Source>
     <Source>core/monitor/machine_mointor.py</Source>
     <Source>core/serial/serialport.py</Source>
+    <Source>core/serial/serialportcontext.py</Source>
+    <Source>core/serial/serialportedittext.py</Source>
     <Source>core/settingForm.py</Source>
     <Source>core/vrep/Ui_vrep_setting.py</Source>
     <Source>core/vrep/vrep_setting.py</Source>
@@ -41,6 +43,7 @@
     <Source>core/widgets/simulation.py</Source>
     <Source>icons_rc.py</Source>
     <Source>launchPyquino.py</Source>
+    <Source>simu_test.py</Source>
     <Source>test.py</Source>
     <Source>test1.py</Source>
     <Source>testCode/opencvTest.py</Source>
@@ -48,8 +51,6 @@
     <Source>testCode/ttttt.py</Source>
   </Sources>
   <Forms>
-    <Form>core/widgets/bodySettingForm.ui</Form>
-    <Form>core/widgets/jointSettingForm.ui</Form>
     <Form>core/gcode/mainwindow.ui</Form>
     <Form>core/graphy/graphy.ui</Form>
     <Form>core/mainwindow.ui</Form>
@@ -57,6 +58,8 @@
     <Form>core/monitor/mainwindow.ui</Form>
     <Form>core/settingForm.ui</Form>
     <Form>core/vrep/vrep_setting.ui</Form>
+    <Form>core/widgets/bodySettingForm.ui</Form>
+    <Form>core/widgets/jointSettingForm.ui</Form>
     <Form>core/widgets/serialUI.ui</Form>
   </Forms>
   <Resources>
@@ -181,4 +184,131 @@
     <FiletypeAssociation pattern="*.ts" type="TRANSLATIONS"/>
     <FiletypeAssociation pattern="*.ui" type="FORMS"/>
   </FiletypeAssociations>
+  <Checkers>
+    <CheckersParams>
+      <dict>
+        <key>
+          <string>PYLINT</string>
+        </key>
+        <value>
+          <dict>
+            <key>
+              <string>dialogReport</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>disabledMessages</string>
+            </key>
+            <value>
+              <string></string>
+            </value>
+            <key>
+              <string>enableBasic</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableClasses</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableDesign</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableExceptions</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableFormat</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableImports</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableLogging</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableMetrics</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableMiscellaneous</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableNewstyle</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableSimilarities</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableStringFormat</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableTypecheck</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enableVariables</string>
+            </key>
+            <value>
+              <bool>True</bool>
+            </value>
+            <key>
+              <string>enabledMessages</string>
+            </key>
+            <value>
+              <string></string>
+            </value>
+            <key>
+              <string>htmlReport</string>
+            </key>
+            <value>
+              <bool>False</bool>
+            </value>
+            <key>
+              <string>txtReport</string>
+            </key>
+            <value>
+              <bool>False</bool>
+            </value>
+          </dict>
+        </value>
+      </dict>
+    </CheckersParams>
+  </Checkers>
 </Project>
