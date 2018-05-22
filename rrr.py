@@ -179,14 +179,26 @@ def parse_vpoints(expr: str) -> List[List[Union[str, float]]]:
     return _PMKSParams().transform(_pmks_grammar.parse(expr))
 
 if __name__ == '__main__':
+    
     example, inputs = ("M[" +
         "J[R, color[Green], P[0.0, 0.0], L[ground, link_1]], " +
         "J[R, color[Green], P[12.92, 32.53], L[link_1, link_2]], " +
-        "J[R, color[Green], P[73.28, 67.97], L[link_2, link_3]], " +
         "J[R, color[Green], P[33.3, 66.95], L[link_2]], " +
+        "J[R, color[Green], P[73.28, 67.97], L[link_2, link_3]], " +
         "J[R, color[Green], P[90.0, 0.0], L[ground, link_3]]" +
         "]", {0: ('ground', 'link_1')})
-
+    """
+    example, inputs = ("M[" +
+        "J[R, color[Green], P[-9.6, 0.0], L[ground, link_1]], " +
+        "J[R, color[Blue], P[-38.0, -7.8], L[ground, link_3, link_5]], " +
+        "J[R, color[Green], P[9.61, 11.52], L[link_1, link_2, link_4]], " +
+        "J[R, color[Green], P[-35.24, 33.61], L[link_2, link_3]], " +
+        "J[R, color[Green], P[-77.75, -2.54], L[link_3, link_6]], " +
+        "J[R, color[Green], P[-20.1, -42.79], L[link_4, link_5, link_7]], " +
+        "J[R, color[Green], P[-56.05, -35.42], L[link_6, link_7]], " +
+        "J[R, color[Green], P[-22.22, -91.74], L[link_7]]" +
+        "]", {0: ('ground', 'link_1')})
+    """
     vpoints = parse_vpoints(example)
     vlinks = {}
     for i, vpoint in enumerate(vpoints):
@@ -195,23 +207,24 @@ if __name__ == '__main__':
                 vlinks[link].add(i)
             else:
                 vlinks[link] = {i}
+    print(vlinks)
     
     def coord(c):
-        "Convert world coordinates to pixel coordinates."
-        return 320+1*c[0], 400-1*c[1]
-
-
+        """Convert world coordinates to pixel coordinates."""
+        return 320+1*c[0], 300-1*c[1]
+    
+    
     # Initialize pygame
     pygame.init()
-
+    
     # Open a display
     srf = pygame.display.set_mode((640,480))
-
+    
     # Create a world object
     world = ode.World()
     world.setGravity((0,-9.81,0))
     
-    bodys = []
+    bodies = []
     
     for i, vpoint in enumerate(vpoints):
         body = ode.Body(world)
@@ -220,47 +233,46 @@ if __name__ == '__main__':
         body.setMass(M)
         x, y = vpoint
         body.setPosition((x, y, 0))
-        bodys.append(body)
+        bodies.append(body)
     
-    bodys[0].setGravityMode(False)
+    bodies[0].setGravityMode(False)
     
     joints = []
-    for i in range(len(bodys)):
-        if i ==0 :
-            j = ode.HingeJoint(world)
-            j.attach(bodys[1], ode.environment)
-            j.setAxis((0, 0, 1))
-            j.setAnchor(bodys[0].getPosition())
-            j.setParam(ode.ParamVel, 2)
-            j.setParam(ode.ParamFMax, 22000)
-            print("123")
-        else:
-            if i < len(bodys)-1:
-                j = ode.BallJoint(world)
-                j.attach(bodys[i], bodys[i+1])
-                j.setAnchor(bodys[i].getPosition())
-                #print(i, i+1)
-            elif i == 4:
-                j = ode.BallJoint(world)
-                j.attach(bodys[i], ode.environment)
-                j.setAnchor(bodys[i].getPosition())
-        joints.append(j)
-    
-    a = ode.BallJoint(world)
-    a.attach(bodys[1], bodys[3])
-    joints.append(a)
-    """
-    for i in range(len(bodys)):
-        balljoint = ode.BallJoint(world)
-        if i < len(bodys)-1:
-            balljoint.attach(bodys[i+1], bodys[i+2])
-            print(bodys[i+1].getPosition())
-            balljoint.setAnchor((bodys[i].getPosition()))
-        else :
-            break
-    """
-    #for body in range(lsn(bodys)):
-        
+    for name, vlink in vlinks.items():
+        link = list(vlink)
+        if name == 'ground':
+            for p in link:
+                if p in inputs:
+                    print("input:", p)
+                    j = ode.HingeJoint(world)
+                    j.attach(bodies[(vlinks[inputs[p][1]] - {p}).pop()], ode.environment)
+                    j.setAxis((0, 0, 1))
+                    j.setAnchor(bodies[p].getPosition())
+                    j.setParam(ode.ParamVel, 2)
+                    j.setParam(ode.ParamFMax, 22000)
+                else:
+                    print("grounded:", p)
+                    j = ode.BallJoint(world)
+                    j.attach(bodies[p], ode.environment)
+                    j.setAnchor(bodies[p].getPosition())
+                joints.append(j)
+        elif len(link) >= 2:
+            print("link:", link[0], link[1])
+            j = ode.BallJoint(world)
+            j.attach(bodies[link[0]], bodies[link[1]])
+            j.setAnchor(bodies[link[0]].getPosition())
+            joints.append(j)
+            for p in link[2:]:
+                print("other:", p, link[0], link[1])
+                for k in range(2):
+                    j = ode.BallJoint(world)
+                    j.attach(bodies[p], bodies[link[k]])
+                joints.append(j)
+    check = []
+    for i in range(len(joints)):
+        print(joints[i].getAnchor())
+    print(check)
+    print(len(joints))
     fps = 50
     dt = 1.0/fps
     loopFlag = True
@@ -283,7 +295,7 @@ if __name__ == '__main__':
         for name, vlink in vlinks.items():
             if name == 'ground':
                 continue
-            pos = [bodys[n].getPosition() for n in vlink]
+            pos = [bodies[n].getPosition() for n in vlink]
             for n in range(0, len(pos)):
                 draw(pos[n-1], pos[n])
 
