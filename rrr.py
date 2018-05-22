@@ -189,9 +189,9 @@ if __name__ == '__main__':
         "]", {0: ('ground', 'link_1')})
     """
     example, inputs = ("M[" +
-        "J[R, color[Green], P[-9.6, 0.0], L[ground, link_1]], " +
-        "J[R, color[Blue], P[-38.0, -7.8], L[ground, link_3, link_5]], " +
+        "J[R, color[Green], P[0.0, 0.0], L[ground, link_1]], " +
         "J[R, color[Green], P[9.61, 11.52], L[link_1, link_2, link_4]], " +
+        "J[R, color[Blue], P[-38.0, -7.8], L[ground, link_3, link_5]], " +
         "J[R, color[Green], P[-35.24, 33.61], L[link_2, link_3]], " +
         "J[R, color[Green], P[-77.75, -2.54], L[link_3, link_6]], " +
         "J[R, color[Green], P[-20.1, -42.79], L[link_4, link_5, link_7]], " +
@@ -240,12 +240,15 @@ if __name__ == '__main__':
     joints = []
     for name, vlink in vlinks.items():
         link = list(vlink)
+        print(link)
         if name == 'ground':
             for p in link:
                 if p in inputs:
                     print("input:", p)
                     j = ode.HingeJoint(world)
+                    print("*"*10, vlink)
                     j.attach(bodies[(vlinks[inputs[p][1]] - {p}).pop()], ode.environment)
+                    #j.attach(bodies[1], ode.environment)
                     j.setAxis((0, 0, 1))
                     j.setAnchor(bodies[p].getPosition())
                     j.setParam(ode.ParamVel, 2)
