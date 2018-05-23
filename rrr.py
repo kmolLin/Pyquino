@@ -183,8 +183,8 @@ if __name__ == '__main__':
     example, inputs = ("M[" +
         "J[R, color[Green], P[0.0, 0.0], L[ground, link_1]], " +
         "J[R, color[Green], P[12.92, 32.53], L[link_1, link_2]], " +
-        "J[R, color[Green], P[33.3, 66.95], L[link_2]], " +
         "J[R, color[Green], P[73.28, 67.97], L[link_2, link_3]], " +
+        "J[R, color[Green], P[33.3, 66.95], L[link_2]], " +
         "J[R, color[Green], P[90.0, 0.0], L[ground, link_3]]" +
         "]", {0: ('ground', 'link_1')})
     """
@@ -198,6 +198,23 @@ if __name__ == '__main__':
         "J[R, color[Green], P[-56.05, -35.42], L[link_6, link_7]], " +
         "J[R, color[Green], P[-22.22, -91.74], L[link_7]]" +
         "]", {0: ('ground', 'link_1')})
+        
+    example, input = ("M[" +
+        "J[R, color[Green], P[0.0, 0.0], L[ground, link_1]], " +
+        "J[R, color[Green], P[9.61, 11.52], L[link_1, link_2, link_4, link_8, link_10]], " +
+        "J[R, color[Blue], P[-38.0, -7.8], L[ground, link_3, link_5]], " +
+        "J[R, color[Green], P[-35.24, 33.61], L[link_2, link_3]], " +
+        "J[R, color[Green], P[-77.75, -2.54], L[link_3, link_6]], " +
+        "J[R, color[Green], P[-20.1, -42.79], L[link_4, link_5, link_7]], " +
+        "J[R, color[Green], P[-56.05, -35.42], L[link_6, link_7]], " +
+        "J[R, color[Green], P[-22.22, -91.74], L[link_7]], " +
+        "J[R, color[Blue], P[38.0, -7.8], L[ground, link_9, link_11]], " +
+        "J[R, color[Green], P[56.28, 29.46], L[link_8, link_9]], " +
+        "J[R, color[Green], P[75.07, -23.09], L[link_9, link_12]], " +
+        "J[R, color[Green], P[31.18, -46.5], L[link_10, link_11, link_13]], " +
+        "J[R, color[Green], P[64.84, -61.13], L[link_12, link_13]], " +
+        "J[R, color[Green], P[4.79, -87.79], L[link_13]]" +
+        "]", {0: ('ground', 'link_1')})
     """
     vpoints = parse_vpoints(example)
     vlinks = {}
@@ -207,10 +224,9 @@ if __name__ == '__main__':
                 vlinks[link].add(i)
             else:
                 vlinks[link] = {i}
-    print(vlinks)
     
     def coord(c):
-        """Convert world coordinates to pixel coordinates."""
+        "Convert world coordinates to pixel coordinates."
         return 320+1*c[0], 300-1*c[1]
     
     
@@ -246,11 +262,10 @@ if __name__ == '__main__':
                 if p in inputs:
                     print("input:", p)
                     j = ode.HingeJoint(world)
-                    print("*"*10, vlink)
-                    j.attach(bodies[(vlinks[inputs[p][1]] - {p}).pop()], ode.environment)
-                    #j.attach(bodies[1], ode.environment)
+                    #j.attach(bodies[(vlinks[inputs[p][1]] - {p}).pop()], ode.environment)
+                    j.attach(bodies[1], ode.environment)
                     j.setAxis((0, 0, 1))
-                    j.setAnchor(bodies[p].getPosition())
+                    j.setAnchor(bodies[0].getPosition())
                     j.setParam(ode.ParamVel, 2)
                     j.setParam(ode.ParamFMax, 22000)
                 else:
@@ -265,6 +280,7 @@ if __name__ == '__main__':
             j.attach(bodies[link[0]], bodies[link[1]])
             j.setAnchor(bodies[link[0]].getPosition())
             joints.append(j)
+            # TODO : need to add select method in this joint type
             for p in link[2:]:
                 print("other:", p, link[0], link[1])
                 for k in range(2):
