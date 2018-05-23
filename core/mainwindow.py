@@ -26,7 +26,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.mainCanvas = CanvasPaint(self)
         self.painter_layout.addWidget(self.mainCanvas)
-        self.mainCanvas.test()
+        #self.mainCanvas.test()
         self.sim_start.clicked.connect(self.let)
         self.sim_stop.clicked.connect(lambda:self.mainCanvas.setTimer(False))
         

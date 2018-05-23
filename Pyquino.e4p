@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project Pyquino -->
-<!-- Saved: 2018-05-16, 21:39:57 -->
+<!-- Saved: 2018-05-23, 21:37:49 -->
 <!-- Copyright (C) 2018 you-sheng,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -22,6 +22,7 @@
     <Source>core/graphy/__init__.py</Source>
     <Source>core/graphy/graphy.py</Source>
     <Source>core/info.py</Source>
+    <Source>core/io/representation.py</Source>
     <Source>core/mainwindow.py</Source>
     <Source>core/monitor/Ui_machine_mointor.py</Source>
     <Source>core/monitor/Ui_mainwindow.py</Source>

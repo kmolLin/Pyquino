@@ -55,11 +55,13 @@ class CanvasPaint(QWidget):
     
     def __init__(self, parent = None):
         super(CanvasPaint, self).__init__(parent)
+        self.test()
         self.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.zoom = 1
         self.loopFlag = True
         self.timer = QTimer(self)
+        
         self.timer.timeout.connect(self.update)
         self.timer.timeout.connect(lambda: self.world.step(self.dt)) #sec
     
@@ -90,7 +92,7 @@ class CanvasPaint(QWidget):
         
         self.bodies[0].setGravityMode(False)
         
-        joints = []
+        self.joints = []
         for name, vlink in self.vlinks.items():
             link = list(vlink)
             print(link)
@@ -110,20 +112,20 @@ class CanvasPaint(QWidget):
                         j = ode.BallJoint(self.world)
                         j.attach(self.bodies[p], ode.environment)
                         j.setAnchor(self.bodies[p].getPosition())
-                    joints.append(j)
+                    self.joints.append(j)
             elif len(link) >= 2:
                 print("link:", link[0], link[1])
                 j = ode.BallJoint(self.world)
                 j.attach(self.bodies[link[0]], self.bodies[link[1]])
                 j.setAnchor(self.bodies[link[0]].getPosition())
-                joints.append(j)
+                self.joints.append(j)
                 # TODO : need to add select method in this joint type
                 for p in link[2:]:
                     print("other:", p, link[0], link[1])
                     for k in range(2):
                         j = ode.BallJoint(self.world)
                         j.attach(self.bodies[p], self.bodies[link[k]])
-                    joints.append(j)
+                    self.joints.append(j)
     
     def setTimer(self, flag, checkmode):
         if flag:
@@ -133,7 +135,7 @@ class CanvasPaint(QWidget):
     
     @pyqtSlot(int)
     def setMotor(self, vel: int):
-        self.j1.setParam(ode.ParamVel, vel)
+        self.joints[0].setParam(ode.ParamVel, vel)
     
     def coord(self, c):
         print(c[0], c[1])
@@ -148,17 +150,16 @@ class CanvasPaint(QWidget):
         pen.setWidth(3)
         
         def draw(c1, c2):
-            self.painter.setPen(pen)
-            self.painter.drawLine(QPointF(c1[0], -c1[2])*self.zoom, QPointF(c2[0], -c2[1])*self.zoom)
-            print(c1, c2)
-            self.painter.end()
+            self.painter.drawLine(QPointF(c1[0], -c1[1])*self.zoom, QPointF(c2[0], -c2[1])*self.zoom)
             
         for name, vlink in self.vlinks.items():
             if name == 'ground':
                 continue
             pos = [self.bodies[n].getPosition() for n in vlink]
             for n in range(0, len(pos)):
+                self.painter.setPen(pen)
                 draw(pos[n-1], pos[n])
+        self.painter.end()
         """
         x1,y1,z1 = self.body1.getPosition()
         angle = self.j1.getAngle()
