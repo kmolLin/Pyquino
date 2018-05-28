@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project Pyquino -->
-<!-- Saved: 2018-05-23, 21:37:49 -->
+<!-- Saved: 2018-05-29, 00:58:21 -->
 <!-- Copyright (C) 2018 you-sheng,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -15,6 +15,7 @@
   <Sources>
     <Source>core/RightClick.py</Source>
     <Source>core/Ui_mainwindow.py</Source>
+    <Source>core/Ui_settingForm.py</Source>
     <Source>core/__init__.py</Source>
     <Source>core/gcode/Ui_mainwindow.py</Source>
     <Source>core/gcode/gcodeParser.py</Source>
@@ -38,6 +39,8 @@
     <Source>core/vrep_remoAPI/one_link_robot_remoteAPI_joint_position.py</Source>
     <Source>core/vrep_remoAPI/vrep.py</Source>
     <Source>core/vrep_remoAPI/vrepConst.py</Source>
+    <Source>core/widgets/Ui_bodySettingForm.py</Source>
+    <Source>core/widgets/Ui_jointSettingForm.py</Source>
     <Source>core/widgets/Ui_serialUI.py</Source>
     <Source>core/widgets/Ui_serialUI.py</Source>
     <Source>core/widgets/basichart.py</Source>
