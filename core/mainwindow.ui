@@ -56,6 +56,20 @@
                </property>
               </widget>
              </item>
+             <item row="2" column="0">
+              <widget class="QCheckBox" name="serialmode">
+               <property name="text">
+                <string>Serial Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="sim_pause">
+               <property name="text">
+                <string>pause</string>
+               </property>
+              </widget>
+             </item>
              <item row="0" column="0">
               <widget class="QPushButton" name="sim_start">
                <property name="text">
@@ -70,24 +84,35 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QPushButton" name="sim_pause">
-               <property name="text">
-                <string>pause</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QCheckBox" name="serialmode">
-               <property name="text">
-                <string>Serial Mode</string>
-               </property>
-              </widget>
-             </item>
              <item row="2" column="1">
               <widget class="QCheckBox" name="freemode">
                <property name="text">
                 <string>Free Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <layout class="QVBoxLayout" name="verticalLayout">
+               <item>
+                <widget class="QDoubleSpinBox" name="Target">
+                 <property name="maximum">
+                  <double>360.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="go">
+                 <property name="text">
+                  <string>Go</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="0">
+              <widget class="QPushButton" name="plot">
+               <property name="text">
+                <string>plot</string>
                </property>
               </widget>
              </item>
@@ -138,7 +163,7 @@
      <addaction name="actionbasic"/>
      <addaction name="actionmachine_human"/>
     </widget>
-    <addaction name="actionSend"/>
+    <addaction name="openfile"/>
     <addaction name="actionExit"/>
     <addaction name="menuchange"/>
    </widget>
@@ -160,9 +185,9 @@
    <addaction name="menuMointor"/>
    <addaction name="menuHelp"/>
   </widget>
-  <action name="actionSend">
+  <action name="openfile">
    <property name="text">
-    <string>send Gcode</string>
+    <string>Open</string>
    </property>
   </action>
   <action name="actionExit">

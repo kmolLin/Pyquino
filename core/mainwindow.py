@@ -11,6 +11,10 @@ from .RightClick import rightClick
 from .settingForm import SettingForm
 from .widgets.simulation import CanvasPaint
 from .vrep.vrep_setting import vrepsetting
+from .IO.representation import *
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 class MainWindow(QMainWindow, Ui_MainWindow):
 
@@ -26,15 +30,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.mainCanvas = CanvasPaint(self)
         self.painter_layout.addWidget(self.mainCanvas)
-        #self.mainCanvas.test()
+        
         self.sim_start.clicked.connect(self.let)
-        self.sim_stop.clicked.connect(lambda:self.mainCanvas.setTimer(False))
+        self.sim_stop.clicked.connect(lambda:self.mainCanvas.setTimer(2))
         
         rightClick(self)
     
     def let(self):
-        self.mainCanvas.setTimer(True, self.freemode.checkState())
+        self.mainCanvas.setTimer(0)
         self.mainCanvas.setMotor(10)
+        self.mainCanvas.update()
         
     
     @pyqtSlot(QPoint)
@@ -135,3 +140,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.treeitemSelct = [item, column]
         print(column)
     
+    @pyqtSlot()
+    def on_openfile_triggered(self):
+        """ Open file in machine"""
+        example, inputs = ("M[" +
+        "J[R, color[Green], P[0.0, 0.0], L[ground, link_1]], " +
+        "J[R, color[Green], P[12.92, 32.53], L[link_1, link_2]], " +
+        "J[R, color[Green], P[73.28, 67.97], L[link_2, link_3]], " +
+        "J[R, color[Green], P[33.3, 66.95], L[link_2]], " +
+        "J[R, color[Green], P[90.0, 0.0], L[ground, link_3]]" +
+        "]", {0: ('ground', 'link_1')})
+        
+        self.mainCanvas.loaddata(parse_vpoints(example))
+        self.mainCanvas.update()
+    
+    @pyqtSlot()
+    def on_go_clicked(self):
+        self.mainCanvas.setTimer(0)
+        self.mainCanvas.target = self.Target.value()
+        self.mainCanvas.update()
+    
+    @pyqtSlot()
+    def on_plot_clicked(self):
+        #print(self.mainCanvas.plotdata)
+        print(len(self.mainCanvas.plotdata))
+        plt.plot(np.arange(len(self.mainCanvas.plotdata)), self.mainCanvas.plotdata)
+        plt.show()
+    
+    @pyqtSlot()
+    def on_sim_pause_clicked(self):
+        self.mainCanvas.setTimer(1)

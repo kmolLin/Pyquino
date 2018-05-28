@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Lin\Desktop\Pyquino\core\settingForm.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 

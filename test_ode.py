@@ -88,6 +88,7 @@ I_state_max = 500
 I_state_min = -500
 
 while loopFlag:
+    
     events = pygame.event.get()
     for e in events:
         if e.type==QUIT:
