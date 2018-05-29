@@ -23,17 +23,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.main_splitter.setSizes([200, 200])
-        
         self.actionserial.triggered.connect(self.__serialport__)
         self.actionVrep.triggered.connect(self.__teset__)
         self.actionControl.triggered.connect(self.__control__)
-        
         self.mainCanvas = CanvasPaint(self)
         self.painter_layout.addWidget(self.mainCanvas)
-        
         self.sim_start.clicked.connect(self.let)
         self.sim_stop.clicked.connect(lambda:self.mainCanvas.setTimer(2))
-        
         rightClick(self)
     
     def let(self):
@@ -71,6 +67,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
                 
                 
+    def treewidgetupdate(self):
+        root = QTreeWidgetItem(["123", "234"])
+        root.setFlags((root.flags() | Qt.ItemIsEditable))
+        root.addChild(QTreeWidgetItem(["Max", "20" ]))
+        self.tree.addTopLevelItem(root)
+
+    
     def reflesh(self):
         if self.formfile['component'] == "Motor":
             root = QTreeWidgetItem([self.formfile['Name'], self.formfile['component']])
@@ -153,6 +156,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.mainCanvas.loaddata(parse_vpoints(example))
         self.mainCanvas.update()
+        self.treewidgetupdate()
     
     @pyqtSlot()
     def on_go_clicked(self):

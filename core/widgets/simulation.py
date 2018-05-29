@@ -58,7 +58,7 @@ class CanvasPaint(QWidget):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.angle = 0
         self.target = 0
-        self.zoom = 1
+        self.zoom = 2
         self.loopFlag = True
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update)
