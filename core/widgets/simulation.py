@@ -49,6 +49,7 @@ class CanvasPaint(QWidget):
     
     fps = 50
     dt = 0.01
+    simcontrol2real = pyqtSignal(str)
     
     def __init__(self, parent = None):
         super(CanvasPaint, self).__init__(parent)
@@ -172,6 +173,10 @@ class CanvasPaint(QWidget):
         I_term = I_state * I_const
         
         command_vel = P_term + I_term + D_term
+        if command_vel >1:
+            command_vel = 1
+        elif command_vel <-1:
+            command_vel = -1
         return command_vel
         
     def drawlinks(self, vlinksitems):
@@ -197,6 +202,7 @@ class CanvasPaint(QWidget):
             self.drawlinks(self.vlinks.items())
             self.angle = self.joints[0].getAngle()
             self.setMotor(self.controlPID())
+            self.simcontrol2real.emit(str(self.controlPID()))
             self.plotdata.append(self.controlPID())
         self.painter.end()
     

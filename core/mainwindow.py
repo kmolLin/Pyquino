@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class MainWindow(QMainWindow, Ui_MainWindow):
+    
 
     def __init__(self, args, parent=None):
         
@@ -102,9 +103,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def __serialport__(self):
         dlg = Serialport()
-        dlg.yield_signal.connect(self.mainCanvas.setMotor)
+        #dlg.yield_signal.connect(self.mainCanvas.setMotor)
+        self.mainCanvas.simcontrol2real.connect(dlg.controldata)
         dlg.show()
         dlg.exec_()
+        self.mainCanvas.simcontrol2real.disconnect(dlg.controldata)
     
     def __control__(self):
         print("control open")
@@ -163,6 +166,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.mainCanvas.setTimer(0)
         self.mainCanvas.target = self.Target.value()
         self.mainCanvas.update()
+        if self.serialmode.isChecked():
+            pass
     
     @pyqtSlot()
     def on_plot_clicked(self):

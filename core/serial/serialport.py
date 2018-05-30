@@ -11,7 +11,7 @@ class Serialport(QDialog, Ui_Dialog):
     
     _receive_signal = pyqtSignal(str)
     _auto_send_signal = pyqtSignal()
-    yield_signal = pyqtSignal(int)
+    #yield_signal = pyqtSignal(int)
     
     def __init__(self, parent=None):
         super(Serialport, self).__init__(parent)
@@ -82,7 +82,8 @@ class Serialport(QDialog, Ui_Dialog):
     def __display_recv_data__(self,data):
         self.textEditReceived.insertPlainText(data)
         try:
-            self.yield_signal.emit(int(data))
+            pass
+            #self.yield_signal.emit(int(data))
         except ValueError:
             pass
         sb = self.textEditReceived.verticalScrollBar()
@@ -102,13 +103,9 @@ class Serialport(QDialog, Ui_Dialog):
             self.pushButtonOpenSerial.setText(u'open')
         else:
             try:
-                #currentIndex() will get the number
-                portss = self.comboBoxPort.currentText()
                 port = self.comboBoxPort.currentText()
                 baud = int("%s" % self.comboBoxBaud.currentText(),10)
                 self._serial_context_ = serialportcontext.SerialPortContext(port = port,baud = baud)
-                #print(self._serial_context_ )
-                self._serial_context_.recall()
                 self._serial_context_._recvSignal_.connect(self._receive_signal.emit)
                 self._serial_context_.open()
                 self.pushButtonOpenSerial.setText(u'close')
@@ -140,6 +137,13 @@ class Serialport(QDialog, Ui_Dialog):
     
     def __send_data__(self):
         data = str(self.textEditSent.toPlainText()+'\n')
+        print(self._serial_context_.isRunning())
+        if self._serial_context_.isRunning():
+            if len(data) > 0:
+                self._serial_context_.send(data, 0)
+    
+    @pyqtSlot(str)
+    def controldata(self, data:str):
         if self._serial_context_.isRunning():
             if len(data) > 0:
                 self._serial_context_.send(data, 0)
