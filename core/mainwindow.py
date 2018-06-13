@@ -174,6 +174,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #print(self.mainCanvas.plotdata)
         print(len(self.mainCanvas.plotdata))
         plt.plot(np.arange(len(self.mainCanvas.plotdata)), self.mainCanvas.plotdata)
+        self.mainCanvas.testfuc()
         plt.show()
     
     @pyqtSlot()

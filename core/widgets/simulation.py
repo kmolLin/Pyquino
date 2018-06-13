@@ -26,7 +26,7 @@ example, inputs = ("M[" +
     "J[R, color[Green], P[-56.05, -35.42], L[link_6, link_7]], " +
     "J[R, color[Green], P[-22.22, -91.74], L[link_7]]" +
     "]", {0: ('ground', 'link_1')})
-"""
+
 example, input = ("M[" +
     "J[R, color[Green], P[0.0, 0.0], L[ground, link_1]], " +
     "J[R, color[Green], P[9.61, 11.52], L[link_1, link_2, link_4, link_8, link_10]], " +
@@ -43,7 +43,7 @@ example, input = ("M[" +
     "J[R, color[Green], P[64.84, -61.13], L[link_12, link_13]], " +
     "J[R, color[Green], P[4.79, -87.79], L[link_13]]" +
     "]", {0: ('ground', 'link_1')})
-
+"""
 
 class CanvasPaint(QWidget):
     
@@ -97,11 +97,11 @@ class CanvasPaint(QWidget):
         self.joints = []
         for name, vlink in self.vlinks.items():
             link = list(vlink)
-            #print(link)
+            print(link)
             if name == 'ground':
                 for p in link:
                     if p in inputs:
-                        #print("input:", p)
+                        print("input:", p)
                         j = ode.HingeJoint(self.world)
                         #j.attach(bodies[(vlinks[inputs[p][1]] - {p}).pop()], ode.environment)
                         j.attach(self.bodies[1], ode.environment)
@@ -110,24 +110,28 @@ class CanvasPaint(QWidget):
                         j.setParam(ode.ParamVel, 2)
                         j.setParam(ode.ParamFMax, 22000)
                     else:
-                        #print("grounded:", p)
+                        print("grounded:", p)
                         j = ode.BallJoint(self.world)
                         j.attach(self.bodies[p], ode.environment)
                         j.setAnchor(self.bodies[p].getPosition())
                     self.joints.append(j)
             elif len(link) >= 2:
-                #print("link:", link[0], link[1])
+                print("link:", link[0], link[1])
                 j = ode.BallJoint(self.world)
                 j.attach(self.bodies[link[0]], self.bodies[link[1]])
                 j.setAnchor(self.bodies[link[0]].getPosition())
                 self.joints.append(j)
                 # TODO : need to add select method in this joint type
                 for p in link[2:]:
-                    #print("other:", p, link[0], link[1])
+                    print("other:", p, link[0], link[1])
                     for k in range(2):
-                        j = ode.BallJoint(self.world)
+                        j = ode.FixedJoint(self.world)
                         j.attach(self.bodies[p], self.bodies[link[k]])
+                        j.setFixed()
                     self.joints.append(j)
+    def testfuc(self):
+        for i in range(0, len(self.joints)):
+            print(type(self.joints[i].getBody()))
     
     def setTimer(self, count):
         if count == 0:
