@@ -80,13 +80,26 @@ class CanvasPaint(QWidget):
                     self.vlinks[link].add(i)
                 else:
                     self.vlinks[link] = {i}
-        print(self.vlinks)
+            
         self.bodies = []
-    
+        for name, vlink in self.vlinks.items():
+            link = list(vlink)
+            if name == 'ground':
+                continue
+            elif len(link)>=2:
+                print("link:", name, link[0], link[1])
+                
+                for p in link[2:]:
+                    print("other:", name, p, link[0], link[1])
+
+        
+
         for i, vpoint in enumerate(vpoints):
+            
             body = ode.Body(self.world)
             M = ode.Mass()
-            M.setSphere(250, 0.05)
+            print(vpoint)
+            M.setBox(1000, lx, ly, 0.05)
             body.setMass(M)
             x, y = vpoint
             body.setPosition((x, y, 0))
