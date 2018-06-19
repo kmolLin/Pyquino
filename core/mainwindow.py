@@ -160,6 +160,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.mainCanvas.loaddata(parse_vpoints(example))
         self.mainCanvas.update()
         self.treewidgetupdate()
+        self.mainCanvas.getrot()
     
     @pyqtSlot()
     def on_go_clicked(self):

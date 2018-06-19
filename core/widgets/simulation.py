@@ -5,8 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from ..IO.representation import *
 import ode
-import math
-
+from math import sqrt
 example, inputs = ("M[" +
         "J[R, color[Green], P[0.0, 0.0], L[ground, link_1]], " +
         "J[R, color[Green], P[12.92, 32.53], L[link_1, link_2]], " +
@@ -66,82 +65,88 @@ class CanvasPaint(QWidget):
         self.timer.timeout.connect(lambda: self.world.step(self.dt)) #sec
         
         self.plotdata = []
+        
+    def __lenth(self, p1, p2):
+        lenth = sqrt((p2[0]-p1[0])*(p2[0]-p1[0])+(p2[1]-p1[1])*(p2[1]-p1[1]))
+        return lenth
+        
+    def __lenthCenter(self, p1, p2):
+        return ((p1[0]+p2[0])/2, (p1[1]+p2[1])/2, 0)
+        
+    def __translate23d(self, position):
+        return (position[0], position[1], 0)
     
     def loaddata(self, vpoints):
         
         self.world = ode.World()
-        self.world.setGravity((0,-9.81,0))
+        self.world.setGravity((0,-9.81, 0))
         #vpoints = parse_vpoints(mechanism)
         
         self.vlinks = {}
         for i, vpoint in enumerate(vpoints):
             for link in vpoint.links:
                 if link in self.vlinks:
-                    self.vlinks[link].add(i)
+                    self.vlinks[link].append(i)
                 else:
-                    self.vlinks[link] = {i}
-            
+                    self.vlinks[link] = [i]
+        
         self.bodies = []
-        for name, vlink in self.vlinks.items():
-            link = list(vlink)
+        
+        for name in tuple(self.vlinks):
             if name == 'ground':
                 continue
-            elif len(link)>=2:
-                print("link:", name, link[0], link[1])
-                
-                for p in link[2:]:
-                    print("other:", name, p, link[0], link[1])
-
+            vlink = self.vlinks[name]
+            while len(vlink) > 2:
+                n = vlink.pop()
+                for anchor in vlink[:2]:
+                    i = 1
+                    while 'link_{}'.format(i) in self.vlinks:
+                        i += 1
+                    self.vlinks['link_{}'.format(i)] = (anchor, n)
         
-
-        for i, vpoint in enumerate(vpoints):
-            
-            body = ode.Body(self.world)
-            M = ode.Mass()
-            print(vpoint)
-            M.setBox(1000, lx, ly, 0.05)
-            body.setMass(M)
-            x, y = vpoint
-            body.setPosition((x, y, 0))
-            self.bodies.append(body)
         
-        self.bodies[0].setGravityMode(False)
+        for name, vlink in self.vlinks.items():
+            #print(name, [(vpoints[i].cx, vpoints[i].cy) for i in vlink])
+            if name == 'ground':
+                continue
+            rad = 0.002
+            Mass = 1
+            link = ode.Body(self.world)
+            M = ode.Mass() # mass parameter
+            M.setZero() # init the Mass
+            M.setCylinderTotal(Mass, 3, rad, self.__lenth(vpoints[vlink[0]], vpoints[vlink[1]]))
+            link.setPosition(self.__lenthCenter(vpoints[vlink[0]], vpoints[vlink[1]]))
+            print(vlink)
+            self.bodies.append(link)
+        
         
         self.joints = []
         for name, vlink in self.vlinks.items():
             link = list(vlink)
-            print(link)
             if name == 'ground':
                 for p in link:
                     if p in inputs:
                         print("input:", p)
                         j = ode.HingeJoint(self.world)
                         #j.attach(bodies[(vlinks[inputs[p][1]] - {p}).pop()], ode.environment)
-                        j.attach(self.bodies[1], ode.environment)
+                        j.attach(self.bodies[0], ode.environment)
                         j.setAxis((0, 0, 1))
-                        j.setAnchor(self.bodies[0].getPosition())
+                        j.setAnchor(self.__translate23d(vpoints[vlink[0]]))
                         j.setParam(ode.ParamVel, 2)
                         j.setParam(ode.ParamFMax, 22000)
                     else:
                         print("grounded:", p)
                         j = ode.BallJoint(self.world)
                         j.attach(self.bodies[p], ode.environment)
-                        j.setAnchor(self.bodies[p].getPosition())
+                        j.setAnchor(self.__translate23d(vpoints[vlink[1]]))
                     self.joints.append(j)
             elif len(link) >= 2:
                 print("link:", link[0], link[1])
                 j = ode.BallJoint(self.world)
                 j.attach(self.bodies[link[0]], self.bodies[link[1]])
-                j.setAnchor(self.bodies[link[0]].getPosition())
+                j.setAnchor(self.__translate23d(vpoints[link[0]]))
                 self.joints.append(j)
-                # TODO : need to add select method in this joint type
-                for p in link[2:]:
-                    print("other:", p, link[0], link[1])
-                    for k in range(2):
-                        j = ode.FixedJoint(self.world)
-                        j.attach(self.bodies[p], self.bodies[link[k]])
-                        j.setFixed()
-                    self.joints.append(j)
+
     def testfuc(self):
         for i in range(0, len(self.joints)):
             print(type(self.joints[i].getBody()))
@@ -195,7 +200,11 @@ class CanvasPaint(QWidget):
         elif command_vel <-1:
             command_vel = -1
         return command_vel
-        
+    
+    def getrot(self):
+        print(self.bodies[0].getPosition())
+        print(self.bodies[0].getRotation())
+    
     def drawlinks(self, vlinksitems):
         def draw(c1, c2):
             self.painter.drawLine(QPointF(c1[0], -c1[1])*self.zoom, QPointF(c2[0], -c2[1])*self.zoom)
@@ -206,10 +215,14 @@ class CanvasPaint(QWidget):
             for n in range(0, len(pos)):
                 self.painter.setPen(self.pen)
                 draw(pos[n-1], pos[n])
+    def drawpath(self):
+        x, y, z = self.bodies[0].getPosition()
+        self.path = QPainterPath((x, y))
     
     def paintEvent(self, event):
         """draw and Canvas"""
         self.painter = QPainter()
+        
         self.painter.begin(self)
         self.painter.fillRect(event.rect(), QBrush(Qt.white))
         self.painter.translate(self.width()/2, self.height()/2)
