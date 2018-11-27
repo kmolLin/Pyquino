@@ -43,6 +43,7 @@ class readingGcode(QThread):
     def stop(self):
         with QMutexLocker(self.mutex): self.stoped = True
 
+
 class vrepsetting(QDialog, Ui_Dialog):
     def __init__(self, parent=None):
         super(vrepsetting, self).__init__(parent)
@@ -69,13 +70,13 @@ class vrepsetting(QDialog, Ui_Dialog):
         a1z = tz+to
 
         #pivot B
-        b1x = tx+pa*math.cos(math.radians(120))
-        b1y = ty +pa*math.sin(math.radians(120))
-        b1z = tz+to
+        b1x = tx + pa * math.cos(math.radians(120))
+        b1y = ty + pa * math.sin(math.radians(120))
+        b1z = tz + to
         ##pivotC
-        c1x = tx+pa*math.cos(math.radians(240))
-        c1y = ty+pa*math.sin(math.radians(240))
-        c1z = tz+to
+        c1x = tx + pa * math.cos(math.radians(240))
+        c1y = ty + pa * math.sin(math.radians(240))
+        c1z = tz + to
         ##carriage
         a2x = sp
         a2y = 0
@@ -112,7 +113,7 @@ class vrepsetting(QDialog, Ui_Dialog):
             #path = 'test_gcode.gcode'
             parser = GcodeParser()
             self.model = parser.parseFile(filename)
-            print ("Done! %s"%self.model)
+            print("Done! %s"%self.model)
             
             self.renderVertices()
             get = []
