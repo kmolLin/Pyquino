@@ -103,3 +103,6 @@ ENV/
 # eric6
 _eric6project/
 .eric6project/
+
+# pycharm
+*.idle
