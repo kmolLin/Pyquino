@@ -88,8 +88,7 @@ class SerialPortContext(QtCore.QObject,object):
             
         print("close serial port")
      
-    def registerReceivedCallback(self,callback):
-        print("123")
+    def registerReceivedCallback(self, callback):
         self._recvSignal_.connect(callback)
         
     def recall(self):
@@ -131,7 +130,7 @@ class SerialPortContext(QtCore.QObject,object):
             buf_len = len(data)
             self._sent_counts_ += buf_len
             self._all_counts_ += self._recv_counts_ + self._recv_counts_
-            print("wnat to", self._all_counts_)
+            # print("wnat to", self._all_counts_)
 
         else:
             hex_datas = data.split(' ')

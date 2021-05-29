@@ -183,14 +183,17 @@ class MainWindow(QMainWindow):
         self.lnc_thread.start()
 
     def test_process(self):
-        print("gogo")
+        """auto mode send the gcode from PAON"""
         if os.path.isfile(f'C:/Users/smpss/kmol/Pyquino/data.txt'):
             f = open("C:/Users/smpss/kmol/Pyquino/data.txt", "r")
-            print(f.read())
+            # print(f"$J=G21G91Y{f.read()}F150")
+            text = f"$J=G21G91Y{f.read()}F250"
             f.close()
+            print(text)
+            self.__test__send(text)
+            time.sleep(2)
             os.remove(f"C:/Users/smpss/kmol/Pyquino//data.txt")
         self.lnc_thread.create_end_file()
-
 
     def __control__(self):
         print("control open")
