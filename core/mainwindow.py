@@ -121,6 +121,7 @@ class MainWindow(QMainWindow):
         # self.pushButtonClearRecvArea.clicked.connect(self.__clear_recv_area__)
         self.pushButtonSendData.clicked.connect(self.__send_data__)
         self._receive_signal.connect(self.__display_recv_data__)
+        self._receive_signal.connect(self.__test_received__)
         # self.pushButtonOpenRecvFile.clicked.connect(self.__save_recv_file__)
         self.actionSend.triggered.connect(self.__open_send_file__)
         # self.actionOpenGL.triggered.connect(self.__opengl__)
@@ -140,6 +141,8 @@ class MainWindow(QMainWindow):
         self.xAxisleft.clicked.connect(self.__xAxisleft__)
         self.zupButton.clicked.connect(self.__zupButton__)
         self.zdownButton.clicked.connect(self.__zdownButton__)
+
+        self.tt = ""
 
     # def __auto_send_update__(self):
     #    self.lineEditSentCounts.setText("%d" % self._serial_context_.getSendCounts())
@@ -191,8 +194,10 @@ class MainWindow(QMainWindow):
             f.close()
             print(text)
             self.__test__send(text)
-            time.sleep(2)
             os.remove(f"C:/Users/smpss/kmol/Pyquino//data.txt")
+        # check the locate
+        # self.__test__send("?")
+        # print(self.tt)
         self.lnc_thread.create_end_file()
 
     def __control__(self):
@@ -229,6 +234,9 @@ class MainWindow(QMainWindow):
     def __unlockMachine__(self):
         print("unlock")
         pass
+
+    def __test_received__(self, data):
+        self.tt = data
 
     def __yAxisup__(self):
         print("yAxisup")
@@ -357,6 +365,11 @@ class MainWindow(QMainWindow):
     def __clear_send_area__(self):
         self.textEditSent.clear()
 
+    @pyqtSlot()
+    def on_test_btn_clicked(self):
+        print("123")
+        self._serial_context_.send_and_end("?" ,0)
+
     def closeEvent(self, event):
         self._is_auto_sending = False
         if self._serial_context_.isRunning():
@@ -367,7 +380,7 @@ class MainWindow(QMainWindow):
         # self._recv_file_.close()
 
     def __data_received__(self, data):
-        print('recv:%s' % data)
+        # print('recv:%s' % data)
         self._receive_signal.emit(data)
         # if self._recv_file_ != None and self.checkBoxSaveAsFile.isChecked():
         #    self._recv_file_.write(data)

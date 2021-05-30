@@ -751,6 +751,19 @@
           <string>automode</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="test_btn">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>330</y>
+           <width>62</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>test</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QPushButton" name="pushButtonSendData">
         <property name="geometry">
