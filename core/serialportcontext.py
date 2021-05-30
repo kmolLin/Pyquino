@@ -29,6 +29,7 @@ class SerialPortContext(QtCore.QObject, object):
         self._recv_counts_ = 0
         self._sent_counts_ = 0
         self._serial_port_ = None
+        self.recev = None
 
     def getAllCounts(self):
         return self._all_counts_
@@ -83,6 +84,7 @@ class SerialPortContext(QtCore.QObject, object):
         while context.isRunning():
             line = context._serial_port_.readline().decode('utf-8')
             context._recvSignal_.emit(line)
+            self._test_.emit(line)
             buf_len = len(line)
             self._recv_counts_ += buf_len
             self._all_counts_ += self._recv_counts_ + self._recv_counts_
@@ -120,35 +122,40 @@ class SerialPortContext(QtCore.QObject, object):
         self._is_running_ = False
         self._serial_port_.close()
 
-    def send_and_end(self, data, isHex):
-        if not self.isRunning():
-            return
-        if not isHex:
-            buff = data.encode("utf-8")
-            self._serial_port_.write(buff)
-            buf_len = len(data)
+    # def send_and_end(self, data, isHex):
+    #     if not self.isRunning():
+    #         return
+    #     if not isHex:
+    #         buff = data.encode("utf-8")
+    #         self._serial_port_.write(buff)
+    #         # print(self.recev)
+    #         buf_len = len(data)
             # self._sent_counts_ += buf_len
             # self._all_counts_ += self._recv_counts_ + self._recv_counts_
 
+            # <Idle|MPos:0.000,0.000,0.000|FS:0,0|WCO:0.000,0.000,0.000>
+            # ok
+
+            # <Idle|MPos:0.000,0.000,0.000|FS:0,0>
+            # ok
+
+            # <Run|MPos:0.000,-0.024,0.000|FS:0,0>
+            # ok
+
     def send(self, data, isHex):
         if not self.isRunning():
-            print("0")
             return
         if not isHex:
-            print("1")
             buff = data.encode("utf-8")
             self._serial_port_.write(buff)
             buf_len = len(data)
             self._sent_counts_ += buf_len
             self._all_counts_ += self._recv_counts_ + self._recv_counts_
-            # print("wnat to", self._all_counts_)
-
         else:
             hex_datas = data.split(' ')
             buffer = ''
             for d in hex_datas:
                 buffer += d
-            #             print(buffer.decode('hex'))
             buf_len = len(buffer)
             self._sent_counts_ += buf_len
             self._all_counts_ += self._recv_counts_ + self._recv_counts_

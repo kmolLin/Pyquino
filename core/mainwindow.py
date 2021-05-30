@@ -103,7 +103,7 @@ class MainWindow(QMainWindow):
         self.comboBoxBits.addItems(bits)
         self.comboBoxBits.setCurrentIndex(len(bits) - 1)
 
-        stopbits = ["1 Bit", "1.5 Bits", "2 Bits"];
+        stopbits = ["1 Bit", "1.5 Bits", "2 Bits"]
         self.comboBoxStopBits.addItems(stopbits)
         self.comboBoxStopBits.setCurrentIndex(0)
 
@@ -194,11 +194,14 @@ class MainWindow(QMainWindow):
             f.close()
             print(text)
             self.__test__send(text)
-            os.remove(f"C:/Users/smpss/kmol/Pyquino//data.txt")
+            self.qti = QTimer()
+            self.qti.timeout.connect(self.aaa)
+            self.qti.start(500)
+            os.remove(f"C:/Users/smpss/kmol/Pyquino/data.txt")
         # check the locate
         # self.__test__send("?")
         # print(self.tt)
-        self.lnc_thread.create_end_file()
+        # self.lnc_thread.create_end_file()
 
     def __control__(self):
         print("control open")
@@ -236,7 +239,13 @@ class MainWindow(QMainWindow):
         pass
 
     def __test_received__(self, data):
-        self.tt = data
+        if data.startswith("<Idle"):
+            x, y, z = data.split("|")[1].split(":")[1].split(",")
+            print(f"X:{x} Y:{y} Z:{z}")
+            self.stop_timer()
+
+        elif data.startswith("<Run|"):
+            pass
 
     def __yAxisup__(self):
         print("yAxisup")
@@ -367,15 +376,28 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def on_test_btn_clicked(self):
-        print("123")
-        self._serial_context_.send_and_end("?" ,0)
+        self.__test__send("G0 Y-100")
+        time.sleep(0.5)
+        self.qti = QTimer()
+        self.qti.timeout.connect(self.aaa)
+        self.qti.start(500)
+
+    @pyqtSlot()
+    def on_stop_clicked(self):
+        self.qti.stop()
+
+    def stop_timer(self):
+        self.qti.stop()
+        self.lnc_thread.create_end_file()
+
+    def aaa(self):
+        self.__test__send("?")
 
     def closeEvent(self, event):
         self._is_auto_sending = False
         if self._serial_context_.isRunning():
             self._serial_context_.close()
             # if self._recv_file_ != None:
-            print("123")
         # self._recv_file_.flush()
         # self._recv_file_.close()
 
@@ -386,12 +408,10 @@ class MainWindow(QMainWindow):
         #    self._recv_file_.write(data)
 
     def __test__send(self, data1):
-        print(data1)
         data = str(data1 + '\n')
         if self._serial_context_.isRunning():
             if len(data) > 0:
                 self._serial_context_.send(data, 0)
-                print(data)
 
     def __send_data__(self):
         data = str(self.textEditSent.toPlainText() + '\n')

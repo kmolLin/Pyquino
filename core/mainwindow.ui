@@ -764,6 +764,19 @@
           <string>test</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="stop">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>330</y>
+           <width>62</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>stop</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QPushButton" name="pushButtonSendData">
         <property name="geometry">
