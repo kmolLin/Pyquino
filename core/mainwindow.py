@@ -41,7 +41,7 @@ class Thread_wait_forLNC(QThread):
                 self.remove_stopflag()
             else:
                 t0 = 0
-            time.sleep(0.1)
+            time.sleep(0.5)
 
     def remove_stopflag(self):
         os.remove(f"{self.folder}/STOP")

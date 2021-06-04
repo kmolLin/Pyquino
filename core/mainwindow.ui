@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>859</width>
-    <height>526</height>
+    <height>522</height>
    </rect>
   </property>
   <property name="palette">
@@ -267,7 +267,7 @@
    <string>Pyqtuino</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../icons.qrc">
+   <iconset>
     <normaloff>:/icons/usb.png</normaloff>:/icons/usb.png</iconset>
   </property>
   <property name="autoFillBackground">
@@ -870,7 +870,7 @@ p, li { white-space: pre-wrap; }
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../icons.qrc">
+          <iconset>
            <normaloff>:/icons/arrow-up-b.png</normaloff>:/icons/arrow-up-b.png</iconset>
          </property>
          <property name="iconSize">
@@ -893,7 +893,7 @@ p, li { white-space: pre-wrap; }
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../icons.qrc">
+          <iconset>
            <normaloff>:/icons/arrow-left-b.png</normaloff>:/icons/arrow-left-b.png</iconset>
          </property>
          <property name="iconSize">
@@ -916,7 +916,7 @@ p, li { white-space: pre-wrap; }
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../icons.qrc">
+          <iconset>
            <normaloff>:/icons/arrow-right-b.png</normaloff>:/icons/arrow-right-b.png</iconset>
          </property>
          <property name="iconSize">
@@ -939,7 +939,7 @@ p, li { white-space: pre-wrap; }
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../icons.qrc">
+          <iconset>
            <normaloff>:/icons/arrow-down-b.png</normaloff>:/icons/arrow-down-b.png</iconset>
          </property>
          <property name="iconSize">
@@ -962,7 +962,7 @@ p, li { white-space: pre-wrap; }
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../icons.qrc">
+          <iconset>
            <normaloff>:/icons/arrow-up-a.png</normaloff>:/icons/arrow-up-a.png</iconset>
          </property>
          <property name="iconSize">
@@ -985,7 +985,7 @@ p, li { white-space: pre-wrap; }
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../icons.qrc">
+          <iconset>
            <normaloff>:/icons/arrow-down-a.png</normaloff>:/icons/arrow-down-a.png</iconset>
          </property>
          <property name="iconSize">
